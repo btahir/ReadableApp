@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500i,700');
+
+/* main page */
+
+.main-title {
+  padding: 10px 0;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+}
+
+.padding-stuff {
+	padding: 10px 0;
+}

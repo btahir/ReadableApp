@@ -8,16 +8,16 @@ import {
 } from '../actions';
 
 
-const initialPostState = {
-  author: null,
-  body: null,
-  category: null,
-  deleted: null,
-  id: null,
-  timestamp: null,
-  title: null,
-  voteScore: null,
-};
+// const initialPostState = {
+//   author: null,
+//   body: null,
+//   category: null,
+//   deleted: null,
+//   id: null,
+//   timestamp: null,
+//   title: null,
+//   voteScore: null,
+// };
 
 
 function reduceCategories(state = [], action) {
@@ -32,12 +32,12 @@ function reduceCategories(state = [], action) {
   }
 }
 
-function reducePosts(state = initialPostState, action) {
+function reducePosts(state = [], action) {
   switch (action.type) {
     case FETCH_POST:
       return {
         ...state,
-        posts: Object.keys(_.mapKeys(action.posts, 'title')),
+        posts: _.values(action.posts),
       };
     default :
       return state;

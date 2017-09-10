@@ -21,7 +21,7 @@ export function getAllPosts() {
 
   return (dispatch) => {
     request.then((data) => {
-      console.log(data)
+      // console.log(data)
       dispatch({
         type: FETCH_POST,
         posts: data,

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.16.2",
     "eslint": "^4.6.1",
     "eslint-config-airbnb": "^15.1.0",
     "lodash": "^4.17.4",

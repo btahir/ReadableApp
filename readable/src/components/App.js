@@ -1,62 +1,59 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import * as API from '../utils/api';
+import '../App.css';
 import { getAllCategories, getAllPosts } from '../actions';
 import { bindActionCreators } from 'redux';
 
 class App extends Component {
   componentWillMount() {
-    // const { store } = this.props;
     this.props.fetchPosts();
     this.props.fetchCategories();
-    
-
-    // API.getCategories()
-    // .then((res) => {
-    //     store.dispatch({
-    //     type: 'USER_LIST_SUCCESS',
-    //     users: res
-    //     });
-    //     console.log(this.props);
-    // })
   }
 
   showPosts() {
-    const { posts } = this.props;
+    const { allPosts } = this.props;
 
     return (
-      posts.map(p => (
-        <li key={p} className="subheader">
-          p
-        </li>
+      allPosts && allPosts.map(posts => (
+        <ul key={posts.id} className="post-id">
+          <h3 className="post-title">
+            {posts.title}
+          </h3>
+          <div className="post-body">
+            {posts.body}
+          </div>
+          <div className="post-info">
+            <div className="padding-stuff"></div>
+              Auhor: {posts.author}
+              &nbsp;&nbsp;&nbsp;&nbsp; Category: {posts.category}
+              &nbsp;&nbsp;&nbsp;&nbsp; Score: {posts.voteScore}
+          </div>
+
+        </ul>
       ))
     );
   }
 
   render() {
-    const { allPosts } = this.props;
-    const mealOrder = ['breakfast', 'lunch', 'dinner'];
+    // const { allPosts } = this.props;
     console.log("Props", this.props);
     return (
       <div className="App" >
-        Welcome to Anonymous Posts
-        
+        <h1 className="main-title">
+            Welcome to Anonymous Posts
+        </h1>
         <div className="Posts">
-          {mealOrder.map((posts) => (
-            <li key={posts} className="subheader">
-              {posts}
-            </li>
-          ))}
+          {this.showPosts()}
         </div>
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, { allPosts }) {
   return {
     mapCategories: state.reduceCategories.categories,
-    mapPosts: state.reducePosts.posts,
+    allPosts: state.reducePosts.posts,
   };
 }
 
