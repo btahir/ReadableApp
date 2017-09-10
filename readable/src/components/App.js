@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import * as API from '../utils/api';
-import { getAllCategories } from '../actions';
-import {bindActionCreators} from 'redux';
+import { getAllCategories, getAllPosts } from '../actions';
+import { bindActionCreators } from 'redux';
 
 class App extends Component {
-  componentDidMount() {
-    
+  componentWillMount() {
     // const { store } = this.props;
-    // this.props.fetchCategories();
+    this.props.fetchPosts();
+    this.props.fetchCategories();
+    
 
     // API.getCategories()
     // .then((res) => {
@@ -20,12 +21,33 @@ class App extends Component {
     // })
   }
 
+  showPosts() {
+    const { posts } = this.props;
+
+    return (
+      posts.map(p => (
+        <li key={p} className="subheader">
+          p
+        </li>
+      ))
+    );
+  }
+
   render() {
-    // const { categories } = this.props;
+    const { allPosts } = this.props;
+    const mealOrder = ['breakfast', 'lunch', 'dinner'];
     console.log("Props", this.props);
     return (
       <div className="App" >
-      value: 
+        Welcome to Anonymous Posts
+        
+        <div className="Posts">
+          {mealOrder.map((posts) => (
+            <li key={posts} className="subheader">
+              {posts}
+            </li>
+          ))}
+        </div>
       </div>
     );
   }
@@ -33,15 +55,25 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    categories: state.categories,
+    mapCategories: state.reduceCategories.categories,
+    mapPosts: state.reducePosts.posts,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    fetchCategories: getAllCategories
+    fetchCategories: getAllCategories,
+    fetchPosts: getAllPosts,
   }, dispatch);
 }
+
+// Can also call dispatch directly. Do not need to call this.props.fetchCategories() above.
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     fetchCategories: dispatch(getAllCategories()),
+//     fetchPosts: dispatch(getAllPosts()),
+//   };
+// }
 
 
 export default connect(

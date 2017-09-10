@@ -1,13 +1,26 @@
 // import { getCategoriesAction } from '../actions';
 // import * as API from '../utils/api';
-import { FETCH_CATEGORIES } from '../actions';
 import _ from 'lodash';
+import { combineReducers } from 'redux';
+import {
+  FETCH_CATEGORIES,
+  FETCH_POST,
+} from '../actions';
 
-// const allCategories = {
-//   data: API.getCategories(),
-// };
 
-function reduceCategories(state = {}, action) {
+const initialPostState = {
+  author: null,
+  body: null,
+  category: null,
+  deleted: null,
+  id: null,
+  timestamp: null,
+  title: null,
+  voteScore: null,
+};
+
+
+function reduceCategories(state = [], action) {
   switch (action.type) {
     case FETCH_CATEGORIES:
       return {
@@ -19,5 +32,31 @@ function reduceCategories(state = {}, action) {
   }
 }
 
+function reducePosts(state = initialPostState, action) {
+  switch (action.type) {
+    case FETCH_POST:
+      return {
+        ...state,
+        posts: Object.keys(_.mapKeys(action.posts, 'title')),
+      };
+    default :
+      return state;
+  }
+}
 
-export default reduceCategories;
+export default combineReducers({
+  reduceCategories,
+  reducePosts,
+});
+
+        // posts: {
+        //   author: Object.keys(_.mapKeys(action.posts, 'title')),
+        //   body: Object.keys(_.mapKeys(action.posts, 'title')),
+        //   category: Object.keys(_.mapKeys(action.posts, 'title')),
+        //   deleted: Object.keys(_.mapKeys(action.posts, 'title')),
+        //   id: Object.keys(_.mapKeys(action.posts, 'title')),
+        //   timestamp: Object.keys(_.mapKeys(action.posts, 'title')),
+        //   title: Object.keys(_.mapKeys(action.posts, 'title')),
+        //   voteScore: Object.keys(_.mapKeys(action.posts, 'title')),
+        // },
+
