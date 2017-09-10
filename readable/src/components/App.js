@@ -10,11 +10,22 @@ class App extends Component {
     this.props.fetchCategories();
   }
 
-  showPosts() {
+  sortPosts() {
     const { allPosts } = this.props;
 
+    if (allPosts) {
+      allPosts.reverse(post =>
+        post.voteScore,
+      );
+    }
+    return allPosts;
+  }
+
+  showPosts() {
+    const sortedPosts = this.sortPosts();
+
     return (
-      allPosts && allPosts.map(posts => (
+      sortedPosts && sortedPosts.map(posts => (
         <ul key={posts.id} className="post-id">
           <h3 className="post-title">
             {posts.title}

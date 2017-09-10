@@ -1,15 +1,50 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,500i,700');
 
 /* main page */
 
 .main-title {
-  padding: 10px 0;
-  text-align: center;
-  font-family: 'Roboto', sans-serif;
-  font-size: 40px;
-  font-weight: 400;
+color: #333333; 
+font-family: 'Bitter', sans-serif;
+font-size: 45px;
+font-weight: normal;
+line-height: 48px;
+margin: 0;
+text-align: center;
+}
+
+body {
+  
 }
 
 .padding-stuff {
 	padding: 10px 0;
 }
+
+.post-title {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 24px;
+	font-weight: 500;
+	line-height: 32px;
+}
+
+.post-body {
+	color: #111;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 20px;
+	line-height: 24px;
+	font-weight: 300;
+	text-align: justify;
+	text-justify: inter-word;
+}
+
+.post-info {
+color: #a9a9a9;
+font-family: 'Helvetica Neue', sans-serif;
+font-size: 14px;
+line-height: 24px;
+margin: 0 0 24px;
+text-align: justify;
+text-justify: inter-word;
+
+}
+
+
