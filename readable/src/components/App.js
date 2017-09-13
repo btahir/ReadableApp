@@ -14,14 +14,16 @@ class App extends Component {
     const { allPosts } = this.props;
     const { sortValue } = this.props;
 
-    if (allPosts && sortValue.sortValue === 'POPULAR_POST') {
-      allPosts.sort(post => 
-        post.voteScore
-      ).reverse();
-    } else if (allPosts && sortValue.sortValue === 'LATEST_POST') {
-      allPosts.sort(post => 
-        post.timestamp
-      ).reverse();
+    if (allPosts) {
+      if (sortValue.sortValue === 'LATEST_POST') {
+        allPosts.sort(post => 
+          post.timestamp
+        )
+      } else {
+        allPosts.sort(post => 
+          post.voteScore
+        ).reverse();      
+      }
     }
     return allPosts;
   }
