@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../App.css';
-import { getAllCategories, getAllPosts } from '../actions';
+import { getAllCategories, getAllPosts, sortLatest, sortPopular } from '../actions';
 import { bindActionCreators } from 'redux';
 
 class App extends Component {
@@ -12,11 +12,16 @@ class App extends Component {
 
   sortPosts() {
     const { allPosts } = this.props;
+    const { sortValue } = this.props;
 
-    if (allPosts) {
-      allPosts.reverse(post =>
-        post.voteScore,
-      );
+    if (allPosts && sortValue.sortValue === 'POPULAR_POST') {
+      allPosts.sort(post => 
+        post.voteScore
+      ).reverse();
+    } else if (allPosts && sortValue.sortValue === 'LATEST_POST') {
+      allPosts.sort(post => 
+        post.timestamp
+      ).reverse();
     }
     return allPosts;
   }
@@ -34,8 +39,8 @@ class App extends Component {
             {posts.body}
           </div>
           <div className="post-info">
-            <div className="padding-stuff"></div>
-              Auhor: {posts.author}
+            <div className="padding-stuff" />
+              Author: {posts.author}
               &nbsp;&nbsp;&nbsp;&nbsp; Category: {posts.category}
               &nbsp;&nbsp;&nbsp;&nbsp; Score: {posts.voteScore}
           </div>
@@ -45,6 +50,12 @@ class App extends Component {
     );
   }
 
+  // handlePopularClick() {
+  //   let { sortValue } = this.props;
+  //   sortValue = 'voteScore';
+  // }
+
+
   render() {
     // const { allPosts } = this.props;
     console.log("Props", this.props);
@@ -53,6 +64,10 @@ class App extends Component {
         <h1 className="main-title">
             Welcome to Anonymous Posts
         </h1>
+        <div className="sort-buttons">
+          <button onClick={this.props.sortPopular} className="btn-popular">Popular</button>
+          <button onClick={this.props.sortLatest} className="btn-latest">Latest</button>
+        </div>
         <div className="Posts">
           {this.showPosts()}
         </div>
@@ -65,6 +80,8 @@ function mapStateToProps(state, { allPosts }) {
   return {
     mapCategories: state.reduceCategories.categories,
     allPosts: state.reducePosts.posts,
+    sortValue: state.sortValue,
+    // sortValue: state.sortValue,
   };
 }
 
@@ -72,6 +89,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     fetchCategories: getAllCategories,
     fetchPosts: getAllPosts,
+    sortLatest: sortLatest,
+    sortPopular: sortPopular,
   }, dispatch);
 }
 
@@ -86,5 +105,5 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(App);

@@ -5,6 +5,8 @@ import { combineReducers } from 'redux';
 import {
   FETCH_CATEGORIES,
   FETCH_POST,
+  LATEST_POST,
+  POPULAR_POST
 } from '../actions';
 
 
@@ -19,16 +21,15 @@ import {
 //   voteScore: null,
 // };
 
-
 function reduceCategories(state = [], action) {
   switch (action.type) {
-    case FETCH_CATEGORIES:
-      return {
-        ...state,
-        categories: Object.keys(_.mapKeys(action.categories, 'name')),
-      };
-    default :
-      return state;
+  case FETCH_CATEGORIES:
+    return {
+      ...state,
+      categories: Object.keys(_.mapKeys(action.categories, 'name')),
+    };
+  default :
+    return state;
   }
 }
 
@@ -44,19 +45,26 @@ function reducePosts(state = [], action) {
   }
 }
 
+function sortValue(state = [], action) {
+  // console.log('sortValue', action);
+  switch(action.type) {
+    case POPULAR_POST:
+      return {
+        ...state,
+        sortValue: POPULAR_POST,
+      };
+    case LATEST_POST:
+      return {
+        ...state,
+        sortValue: LATEST_POST,
+      };
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   reduceCategories,
   reducePosts,
+  sortValue,
 });
-
-        // posts: {
-        //   author: Object.keys(_.mapKeys(action.posts, 'title')),
-        //   body: Object.keys(_.mapKeys(action.posts, 'title')),
-        //   category: Object.keys(_.mapKeys(action.posts, 'title')),
-        //   deleted: Object.keys(_.mapKeys(action.posts, 'title')),
-        //   id: Object.keys(_.mapKeys(action.posts, 'title')),
-        //   timestamp: Object.keys(_.mapKeys(action.posts, 'title')),
-        //   title: Object.keys(_.mapKeys(action.posts, 'title')),
-        //   voteScore: Object.keys(_.mapKeys(action.posts, 'title')),
-        // },
-

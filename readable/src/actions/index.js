@@ -1,7 +1,8 @@
 import * as API from '../utils/api';
-
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
 export const FETCH_POST = 'FETCH_POST';
+export const LATEST_POST = 'LATEST_POST';
+export const POPULAR_POST = 'POPULAR_POST';
 
 export function getAllCategories() {
   const request = API.getCategories();
@@ -29,4 +30,17 @@ export function getAllPosts() {
     });
   };
 }
+
+export const sortPopular = () => {
+  return {
+    type: POPULAR_POST
+  };
+};
+
+export const sortLatest = () => {
+  return {
+    type: LATEST_POST
+  };
+};
+
 
