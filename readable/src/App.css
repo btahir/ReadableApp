@@ -7,7 +7,7 @@ font-family: 'Bitter', sans-serif;
 font-size: 45px;
 font-weight: normal;
 line-height: 48px;
-margin: 0;
+margin: 18px;
 text-align: center;
 }
 
@@ -25,6 +25,11 @@ body {
 	font-size: 24px;
 	font-weight: 500;
 	line-height: 32px;
+	text-decoration: none;
+}
+
+.post-title :hover {
+	color: #3f8c8c;
 }
 
 .post-body {
@@ -48,13 +53,6 @@ text-justify: inter-word;
 
 }
 
-/* change look of links */
-a {
-    color: #BA2323;
-}
-
-
-
 button {
 color:#08233e;
 font:0.9em Futura, ‘Century Gothic’, AppleGothic, sans-serif;
@@ -77,6 +75,13 @@ button:active{position:relative;top:2px;}
 .btn-latest {
 	margin-left: 0px;
 }
+
+.btn-new-post {
+	margin-left: 0px;
+	text-decoration: none;
+}
+
+.btn-new-post:hover{background-color:#5CBDBD;}
 
 .nav-list {
 	margin:0;

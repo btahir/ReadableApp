@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../App.css';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter, Route, Link } from 'react-router-dom';
 import { getAllCategories, getAllPosts, sortLatest, sortPopular } from '../actions';
 import { bindActionCreators } from 'redux';
+import Posts from './Posts';
 
 class Categories extends Component {
   componentWillMount() {
@@ -20,7 +21,7 @@ class Categories extends Component {
         allPosts.sort(post => 
           post.timestamp
         );
-      } else {
+      } else if (sortValue.sortValue === 'POPULAR_POST')  {
         allPosts.sort(post => 
           post.voteScore
         ).reverse();      
@@ -38,7 +39,7 @@ class Categories extends Component {
         .map(posts => (
           <ul key={posts.id} className="post-id">
             <h3 className="post-title">
-              {posts.title}
+              <Link className="post-title" to={`/posts/${posts.id}`}>{posts.title}</Link>
             </h3>
             <div className="post-body">
               {posts.body}
@@ -56,7 +57,7 @@ class Categories extends Component {
 
   render() {
     return (
-      <div className="App" >
+      <div className="App2" >
         <h1 className="main-title">
             Welcome to Anonymous Posts
         </h1>
@@ -72,6 +73,7 @@ class Categories extends Component {
         <div className="sort-buttons">
           <button onClick={this.props.sortPopular} className="btn-popular">Popular</button>
           <button onClick={this.props.sortLatest} className="btn-latest">Latest</button>
+          <button><Link className="btn-new-post" to="/post">New Post</Link></button>
         </div>
         <div className="Posts">
           {this.showPosts()}
