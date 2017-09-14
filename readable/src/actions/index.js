@@ -3,7 +3,6 @@ export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
 export const FETCH_POST = 'FETCH_POST';
 export const LATEST_POST = 'LATEST_POST';
 export const POPULAR_POST = 'POPULAR_POST';
-export const REACT_CATEGORY = 'REACT_CATEGORY';
 
 export function getAllCategories() {
   const request = API.getCategories();
@@ -41,12 +40,6 @@ export const sortPopular = () => {
 export const sortLatest = () => {
   return {
     type: LATEST_POST
-  };
-};
-
-export const reactCategory = () => {
-  return {
-    type: REACT_CATEGORY
   };
 };
 

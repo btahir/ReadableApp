@@ -60,18 +60,15 @@ class Categories extends Component {
         <h1 className="main-title">
             Welcome to Anonymous Posts
         </h1>
-        <button className="open-react">
-          <Link to="/">All</Link>
-        </button>
-        <button className="open-react">
-          <Link to="/react">React</Link>
-        </button>
-        <button className="open-react">
-          <Link to="/redux">Redux</Link>
-        </button>
-        <button className="open-react">
-          <Link to="/udacity">Udacity</Link>
-        </button>
+        <div className="nav-bar">
+          <ul className="nav-list">
+            <li><Link className="nav-item" to="/">All</Link></li>
+            <li><Link className="nav-item" to="/react">React</Link></li>
+            <li><Link className="nav-item" to="/redux">Redux</Link></li>
+            <li><Link className="nav-item" to="/udacity">Udacity</Link></li>
+          </ul>
+          <hr/>
+        </div>
         <div className="sort-buttons">
           <button onClick={this.props.sortPopular} className="btn-popular">Popular</button>
           <button onClick={this.props.sortLatest} className="btn-latest">Latest</button>
