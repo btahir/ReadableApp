@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../App.css';
+import { withRouter, Route, Link } from 'react-router-dom';
 import { getAllCategories, getAllPosts, sortLatest, sortPopular } from '../actions';
 import { bindActionCreators } from 'redux';
+import Categories from './Categories';
 
 class App extends Component {
   componentWillMount() {
@@ -18,7 +20,7 @@ class App extends Component {
       if (sortValue.sortValue === 'LATEST_POST') {
         allPosts.sort(post => 
           post.timestamp
-        )
+        );
       } else {
         allPosts.sort(post => 
           post.voteScore
@@ -52,38 +54,40 @@ class App extends Component {
     );
   }
 
-  // handlePopularClick() {
-  //   let { sortValue } = this.props;
-  //   sortValue = 'voteScore';
-  // }
-
-
   render() {
-    // const { allPosts } = this.props;
     console.log("Props", this.props);
     return (
       <div className="App" >
-        <h1 className="main-title">
-            Welcome to Anonymous Posts
-        </h1>
-        <div className="sort-buttons">
-          <button onClick={this.props.sortPopular} className="btn-popular">Popular</button>
-          <button onClick={this.props.sortLatest} className="btn-latest">Latest</button>
-        </div>
-        <div className="Posts">
-          {this.showPosts()}
-        </div>
+        <Route exact path='/'
+          render={() => (
+            <Categories filterCategory={['react','redux','udacity']}/>
+          )}
+        />
+        <Route path="/react"
+          render={() => (
+            <Categories filterCategory={['react']}/>
+          )}
+        />
+        <Route path="/redux"
+          render={() => (
+            <Categories filterCategory={['redux']}/>
+          )}
+        />
+        <Route path="/udacity"
+          render={() => (
+            <Categories filterCategory={['udacity']}/>
+          )}
+        />
       </div>
     );
   }
 }
 
-function mapStateToProps(state, { allPosts }) {
+function mapStateToProps(state) {
   return {
     mapCategories: state.reduceCategories.categories,
     allPosts: state.reducePosts.posts,
-    sortValue: state.sortValue,
-    // sortValue: state.sortValue,
+    sortValue: state.sortValue
   };
 }
 
@@ -105,7 +109,7 @@ function mapDispatchToProps(dispatch) {
 // }
 
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(App));
