@@ -1,5 +1,3 @@
-// import { getCategoriesAction } from '../actions';
-// import * as API from '../utils/api';
 import _ from 'lodash';
 import { combineReducers } from 'redux';
 import {
@@ -8,17 +6,15 @@ import {
   LATEST_POST,
   POPULAR_POST
 } from '../actions';
+// import {
+//   combineForms,
+//   createForms // optional
+// } from 'react-redux-form';
+import { reducer as formReducer } from 'redux-form';
 
-
-// const initialPostState = {
-//   author: null,
-//   body: null,
-//   category: null,
-//   deleted: null,
-//   id: null,
-//   timestamp: null,
-//   title: null,
-//   voteScore: null,
+// const initialUserState = {
+//   firstName: '',
+//   lastName: ''
 // };
 
 function reduceCategories(state = [], action) {
@@ -67,4 +63,5 @@ export default combineReducers({
   reduceCategories,
   reducePosts,
   sortValue,
+  form: formReducer
 });

@@ -1,34 +1,120 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import '../App.css';
-import { withRouter, Link } from 'react-router-dom';
-import { getAllPosts } from '../actions';
-import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
+// import { getAllPosts } from '../actions';
+// import { bindActionCreators } from 'redux';
+import { Field, reduxForm } from 'redux-form';
 
 class Posts extends Component {
 
-  render () {
-    console.log("Posts-Props", this.props.match.params.id);
+  afterSubmit(values) {
+    console.log("here",values);
+    this.props.history.push('/');
+  }
+
+  render() {
+    const { handleSubmit, pristine, reset, submitting } = this.props;
+    console.log(this.props.match.params.id);
     return (
-      <div>Hello World
-      </div>
+      <form onSubmit={handleSubmit( (values) => {this.afterSubmit(values)} )}>
+        <div>
+          <label>First Name</label>
+          <div>
+            <Field
+              name="firstName"
+              component="input"
+              type="text"
+              placeholder="First Name"
+            />
+          </div>
+        </div>
+        <div>
+          <label>Last Name</label>
+          <div>
+            <Field
+              name="lastName"
+              component="input"
+              type="text"
+              placeholder="Last Name"
+            />
+          </div>
+        </div>
+        <div>
+          <label>Email</label>
+          <div>
+            <Field
+              name="email"
+              component="input"
+              type="email"
+              placeholder="Email"
+            />
+          </div>
+        </div>
+        <div>
+          <label>Sex</label>
+          <div>
+            <label>
+              <Field
+                name="sex"
+                component="input"
+                type="radio"
+                value="male"
+              />{' '}
+              Male
+            </label>
+            <label>
+              <Field
+                name="sex"
+                component="input"
+                type="radio"
+                value="female"
+              />{' '}
+              Female
+            </label>
+          </div>
+        </div>
+        <div>
+          <label>Favorite Color</label>
+          <div>
+            <Field name="favoriteColor" component="select">
+              <option />
+              <option value="ff0000">Red</option>
+              <option value="00ff00">Green</option>
+              <option value="0000ff">Blue</option>
+            </Field>
+          </div>
+        </div>
+        <div>
+          <label htmlFor="employed">Employed</label>
+          <div>
+            <Field
+              name="employed"
+              id="employed"
+              component="input"
+              type="checkbox"
+            />
+          </div>
+        </div>
+        <div>
+          <label>Notes</label>
+          <div>
+            <Field name="notes" component="textarea" />
+          </div>
+        </div>
+        <div>
+          <button type="submit" disabled={pristine || submitting}>
+            Submit
+          </button>
+          <button type="button" disabled={pristine || submitting} onClick={reset}>
+            Clear Values
+          </button>
+        </div>
+      </form>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    allPosts: state.reducePosts.posts
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    fetchPosts: getAllPosts
-  }, dispatch);
-}
-
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Posts));
+export default withRouter(reduxForm({
+  form: 'simple' // a unique identifier for this form
+})(Posts))

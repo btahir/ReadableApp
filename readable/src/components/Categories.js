@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../App.css';
-import { withRouter, Route, Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { getAllCategories, getAllPosts, sortLatest, sortPopular } from '../actions';
 import { bindActionCreators } from 'redux';
-import Posts from './Posts';
+// import Posts from './Posts';
 
 class Categories extends Component {
   componentWillMount() {
