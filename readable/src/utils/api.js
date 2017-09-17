@@ -17,3 +17,11 @@ export const getCategories = () =>
 export const getPosts = () =>
   fetch(`${api}/posts`, { headers })
     .then(res => res.json());
+
+export const getPost = (id) =>
+  fetch(`${api}/posts/${id}`, { headers })
+    .then(res => res.json());
+
+export const getComments = (id) =>
+  fetch(`${api}/posts/${id}/comments`, { headers })
+    .then(res => res.json());

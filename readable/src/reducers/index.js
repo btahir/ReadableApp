@@ -4,7 +4,9 @@ import {
   FETCH_CATEGORIES,
   FETCH_POST,
   LATEST_POST,
-  POPULAR_POST
+  POPULAR_POST,
+  FETCH_ONE_POST,
+  GET_COMMENTS
 } from '../actions';
 // import {
 //   combineForms,
@@ -19,14 +21,14 @@ import { reducer as formReducer } from 'redux-form';
 
 function reduceCategories(state = [], action) {
   switch (action.type) {
-  case FETCH_CATEGORIES:
-    return {
-      ...state,
-      categories: Object.keys(_.mapKeys(action.categories, 'name')),
-    };
-  default :
-    return state;
-  }
+    case FETCH_CATEGORIES:
+      return {
+        ...state,
+        categories: Object.keys(_.mapKeys(action.categories, 'name')),
+      };
+    default :
+      return state;
+    }
 }
 
 function reducePosts(state = [], action) {
@@ -35,6 +37,16 @@ function reducePosts(state = [], action) {
       return {
         ...state,
         posts: _.values(action.posts),
+      };
+    case FETCH_ONE_POST:
+      return {
+        ...state,
+        postDetail: action.postDetail,
+      };
+    case GET_COMMENTS:
+      return {
+        ...state,
+        comments: action.comments,
       };
     default :
       return state;

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 // import { connect } from 'react-redux';
-import '../App.css';
 import { withRouter } from 'react-router-dom';
 // import { getAllPosts } from '../actions';
 // import { bindActionCreators } from 'redux';
@@ -17,7 +16,7 @@ class Posts extends Component {
     const { handleSubmit, pristine, reset, submitting } = this.props;
     console.log(this.props.match.params.id);
     return (
-      <form onSubmit={handleSubmit( (values) => {this.afterSubmit(values)} )}>
+      <form className='post-form' onSubmit={handleSubmit( (values) => {this.afterSubmit(values)} )}>
         <div>
           <label>First Name</label>
           <div>
@@ -102,11 +101,11 @@ class Posts extends Component {
             <Field name="notes" component="textarea" />
           </div>
         </div>
-        <div>
-          <button type="submit" disabled={pristine || submitting}>
+        <div className="submit-btn">
+          <button className="submit-btn" type="submit" disabled={pristine || submitting}>
             Submit
           </button>
-          <button type="button" disabled={pristine || submitting} onClick={reset}>
+          <button className="reset-btn" type="button" disabled={pristine || submitting} onClick={reset}>
             Clear Values
           </button>
         </div>
@@ -116,5 +115,5 @@ class Posts extends Component {
 }
 
 export default withRouter(reduxForm({
-  form: 'simple' // a unique identifier for this form
+  form: 'post-details' // a unique identifier for this form
 })(Posts))

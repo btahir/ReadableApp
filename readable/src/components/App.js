@@ -2,30 +2,35 @@ import React, { Component } from 'react';
 import '../App.css';
 import { withRouter, Route } from 'react-router-dom';
 import Categories from './Categories';
-import Posts from './Posts';
+import PostDetail from './PostDetail';
 import { connect } from 'react-redux';
+
 
 class App extends Component {
 
-  mapPostsRoutes() {
-    const allPosts = this.props.allPosts;
-    return (
-      allPosts && allPosts.map((posts) => (
-        <ul key={posts.id} className="post-id">
-          <Route path={`/post:${posts.id}`}
-            render={() => (
-              <Posts postInfo = {posts}/>
-            )}
-          />
-        </ul>
-      ))
-    );
-  }
+  // mapPostsRoutes() {
+  //   const allPosts = this.props.allPosts;
+  //   return (
+  //     allPosts && allPosts.map((posts) => (
+  //       <ul key={posts.id} className="post-id">
+  //         <Route path={`/post:${posts.id}`}
+  //           render={() => (
+  //             <Posts postInfo = {posts}/>
+  //           )}
+  //         />
+  //       </ul>
+  //     ))
+  //   );
+  // }
+
 
   render() {
     // console.log("Props", this.props);
     return (
       <div className="App" >
+        <h1 className="main-title">
+          Welcome to Anonymous Posts
+        </h1>
         <Route exact path="/"
           render={() => (
             <Categories filterCategory={['react','redux','udacity']}/>
@@ -48,7 +53,7 @@ class App extends Component {
         />
         <Route path="/posts/:id"
           render={() => (
-            <Posts />
+            <PostDetail />
           )}
         />
       </div>

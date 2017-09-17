@@ -41,15 +41,6 @@ class Categories extends Component {
             <h3 className="post-title">
               <Link className="post-title" to={`/posts/${posts.id}`}>{posts.title}</Link>
             </h3>
-            <div className="post-body">
-              {posts.body}
-            </div>
-            <div className="post-info">
-              <div className="padding-stuff" />
-                Author: {posts.author}
-                &nbsp;&nbsp;&nbsp;&nbsp; Category: {posts.category}
-                &nbsp;&nbsp;&nbsp;&nbsp; Score: {posts.voteScore}
-            </div>
           </ul>
         ))
     );
@@ -58,9 +49,6 @@ class Categories extends Component {
   render() {
     return (
       <div className="App2" >
-        <h1 className="main-title">
-            Welcome to Anonymous Posts
-        </h1>
         <div className="nav-bar">
           <ul className="nav-list">
             <li><Link className="nav-item" to="/">All</Link></li>
