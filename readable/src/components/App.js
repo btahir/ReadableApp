@@ -3,6 +3,7 @@ import '../App.css';
 import { withRouter, Route } from 'react-router-dom';
 import Categories from './Categories';
 import PostDetail from './PostDetail';
+import Post from './Post';
 import { connect } from 'react-redux';
 
 
@@ -54,6 +55,11 @@ class App extends Component {
         <Route path="/posts/:id"
           render={() => (
             <PostDetail />
+          )}
+        />
+        <Route path="/post"
+          render={() => (
+            <Post />
           )}
         />
       </div>

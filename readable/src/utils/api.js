@@ -8,6 +8,7 @@ if (!token)
 const headers = {
   'Accept': 'application/json',
   'Authorization': token,
+  'Content-Type': 'application/json'
 };
 
 export const getCategories = () =>
@@ -25,3 +26,16 @@ export const getPost = (id) =>
 export const getComments = (id) =>
   fetch(`${api}/posts/${id}/comments`, { headers })
     .then(res => res.json());
+
+export const addPost = (post) =>
+  fetch(`${api}/posts`, { 
+    method: 'post',
+    headers: headers,
+    body: JSON.stringify(post) })
+    .then(res => res.json());
+
+export const deletePost = (id) =>
+  fetch(`${api}/posts/${id}`, { 
+    method: 'delete',
+    headers: headers });
+  

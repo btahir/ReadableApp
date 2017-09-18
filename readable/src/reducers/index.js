@@ -6,7 +6,9 @@ import {
   LATEST_POST,
   POPULAR_POST,
   FETCH_ONE_POST,
-  GET_COMMENTS
+  GET_COMMENTS,
+  ADD_POST,
+  DELETE_POST
 } from '../actions';
 // import {
 //   combineForms,
@@ -47,6 +49,15 @@ function reducePosts(state = [], action) {
       return {
         ...state,
         comments: action.comments,
+      };
+    case ADD_POST:
+      return {
+        ...state,
+        newPost: action.newPost,
+      };
+    case DELETE_POST:
+      return {
+        ...state
       };
     default :
       return state;

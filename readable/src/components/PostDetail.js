@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getOnePost, getComments } from '../actions';
+import { getOnePost, getComments, deletePost } from '../actions';
 
 class PostDetail extends Component {
 
-  // componentWillMount() {
-  //   const { getPost } = this.props;
+  // componentDidMount() {
+  //   const deleted_post = false;
   // }
-
-  // {this.props.getPost.filter((posts) => (posts.id===this.props.match.params.id ))
-  //                                                     .map(post => post.id) }
 
   getDate(unix_timestamp) {
     // multiplied by 1000 so that the argument is in milliseconds, not seconds.
@@ -63,6 +60,11 @@ class PostDetail extends Component {
     );
   }
 
+  delPost(id) {
+    this.props.deletePost(id);
+    this.props.history.push('/');
+  }
+
   showComment() {
     const comments = this.props.getComments;
     return (
@@ -73,10 +75,13 @@ class PostDetail extends Component {
   }
 
   render() {
-    console.log(this.props);
-    
+    console.log(this.props)
     return (
       <div>
+        <div>
+          <button onClick={this.props.sortPopular} className="btn-popular">Edit</button>
+          <button onClick={() => {this.delPost(this.props.match.params.id)} } className="btn-latest">Delete</button>
+        </div>
         <div className="post-position">{this.showPost()}</div>
         <div className="comment-position">Comments<hr /></div>
         <div className="post-position">{this.showComment()}</div>
@@ -96,7 +101,8 @@ function mapStateToProps (state) {
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     dispatchPost: dispatch(getOnePost(ownProps.match.params.id)),
-    dispatchComments: dispatch(getComments(ownProps.match.params.id))
+    dispatchComments: dispatch(getComments(ownProps.match.params.id)),
+    deletePost: () => dispatch(deletePost(ownProps.match.params.id))
   };
 }
 

@@ -35,6 +35,7 @@ class Categories extends Component {
 
     return (
       sortedPosts && sortedPosts
+        .filter( posts => posts.deleted === false) // filter deleted
         .filter( posts => this.props.filterCategory.includes(posts.category)) // filter category
         .map(posts => (
           <ul key={posts.id} className="post-id">
@@ -61,7 +62,7 @@ class Categories extends Component {
         <div className="sort-buttons">
           <button onClick={this.props.sortPopular} className="btn-popular">Popular</button>
           <button onClick={this.props.sortLatest} className="btn-latest">Latest</button>
-          <button><Link className="btn-new-post" to="/post">New Post</Link></button>
+          <button className="btn-new-post"><Link className="link-new-post" to="/post">New Post</Link></button>
         </div>
         <div className="Posts">
           {this.showPosts()}
