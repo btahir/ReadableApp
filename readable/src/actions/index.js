@@ -7,6 +7,7 @@ export const FETCH_ONE_POST = 'FETCH_ONE_POST';
 export const GET_COMMENTS = 'GET_COMMENTS';
 export const ADD_POST = 'ADD_POST';
 export const DELETE_POST = 'DELETE_POST';
+export const EDIT_POST = 'EDIT_POST';
 
 export function getAllCategories() {
   const request = API.getCategories();
@@ -81,6 +82,19 @@ export function addPost(data) {
       dispatch({
         type: ADD_POST,
         newPost: data,
+      });
+    });
+  };
+}
+
+export function editPost(data) {
+  const request = API.addPost(data);
+
+  return (dispatch) => {
+    request.then((data) => {
+      dispatch({
+        type: ADD_POST,
+        editedPost: data,
       });
     });
   };

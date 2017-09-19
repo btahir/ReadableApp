@@ -8,7 +8,8 @@ import {
   FETCH_ONE_POST,
   GET_COMMENTS,
   ADD_POST,
-  DELETE_POST
+  DELETE_POST,
+  EDIT_POST
 } from '../actions';
 // import {
 //   combineForms,
@@ -58,6 +59,11 @@ function reducePosts(state = [], action) {
     case DELETE_POST:
       return {
         ...state
+      };
+    case EDIT_POST:
+      return {
+        ...state,
+        editedPost: action.editedPost,
       };
     default :
       return state;

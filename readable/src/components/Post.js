@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import { bindActionCreators } from 'redux';
 import { Field, reduxForm } from 'redux-form';
-import { getAllPosts, addPost } from '../actions';
+import { addPost } from '../actions';
 
 class Post extends Component {
 
@@ -12,7 +12,7 @@ class Post extends Component {
       .toString(16);
   }
 
-  afterSubmit(values) {
+  savePost(values) {
     const uuid = this.getUUID();
 
     const data = {
@@ -33,7 +33,7 @@ class Post extends Component {
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props;
     return (
-      <form className='post-form' onSubmit={handleSubmit( (values) => {this.afterSubmit(values)} )}>
+      <form className='post-form' onSubmit={handleSubmit( (values) => {this.savePost(values)} )}>
         <div>
           <label className="form-label">Title</label>
           <div className="form-field">
@@ -121,23 +121,23 @@ function mapStateToProps (state) {
   };
 }
 
-function mapDispatchToProps(dispatch, values) {
-  return {
-    dispatchPost: dispatch(addPost(values)),
-    fetchPosts: getAllPosts,
-  };
-}
+// function mapDispatchToProps(dispatch, values) {
+//   return {
+//     dispatchPost: dispatch(addPost(values)),
+//     fetchPosts: getAllPosts,
+//   };
+// }
 
 // form validation stuff
 const required = value => value ? undefined : 'Required';
 const validate = values => {
   const errors = {};
   if (!values.title) {
-    console.log('title is required');
+    // console.log('title is required');
     errors.title = 'Required';
   }
   if (!values.author) {
-    console.log('author is required');
+    // console.log('author is required');
     errors.author = 'Required';
   }
   return errors;
@@ -152,7 +152,7 @@ const renderField = ({ input, label, type, meta: { touched, error, warning } }) 
   </div>
 );
 
-const object = withRouter(connect(
+const initialComponent = withRouter(connect(
   mapStateToProps,
   null
 )(Post));
@@ -160,5 +160,5 @@ const object = withRouter(connect(
 export default reduxForm({
   form: 'post-details',
   validate, // a unique name for this form
-})(object);
+})(initialComponent);
 

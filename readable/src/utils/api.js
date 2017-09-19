@@ -38,4 +38,10 @@ export const deletePost = (id) =>
   fetch(`${api}/posts/${id}`, { 
     method: 'delete',
     headers: headers });
-  
+
+export const editPost = (post) =>
+  fetch(`${api}/posts/${post.id}`, { 
+    method: 'put',
+    headers: headers,
+    body: JSON.stringify(post) })
+    .then(res => res.json());

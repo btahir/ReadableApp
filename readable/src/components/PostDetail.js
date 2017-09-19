@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getOnePost, getComments, deletePost } from '../actions';
 
@@ -75,11 +75,11 @@ class PostDetail extends Component {
   }
 
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <div>
         <div>
-          <button onClick={this.props.sortPopular} className="btn-popular">Edit</button>
+          <button className="btn-popular"><Link className="link-new-post" to={`/posts/edit/${this.props.match.params.id}`}>Edit</Link></button>
           <button onClick={() => {this.delPost(this.props.match.params.id)} } className="btn-latest">Delete</button>
         </div>
         <div className="post-position">{this.showPost()}</div>

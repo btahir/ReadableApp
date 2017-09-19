@@ -4,6 +4,7 @@ import { withRouter, Route } from 'react-router-dom';
 import Categories from './Categories';
 import PostDetail from './PostDetail';
 import Post from './Post';
+import PostEdit from './PostEdit';
 import { connect } from 'react-redux';
 
 
@@ -52,14 +53,19 @@ class App extends Component {
             <Categories filterCategory={['udacity']}/>
           )}
         />
-        <Route path="/posts/:id"
+        <Route exact path="/posts/:id"
           render={() => (
             <PostDetail />
           )}
         />
-        <Route path="/post"
+        <Route exact path="/post"
           render={() => (
             <Post />
+          )}
+        />
+        <Route path="/posts/edit/:id"
+          render={() => (
+            <PostEdit />
           )}
         />
       </div>
