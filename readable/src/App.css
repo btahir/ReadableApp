@@ -142,6 +142,7 @@ hr {
 	margin-bottom: 0.5rem;
   font-family: Lato, Helvetica, sans-serif;
   padding: 1rem;
+  background-color: #f2f2f2;
 }
 
 label {
@@ -208,13 +209,16 @@ textarea {
 }
 
 .form-field {
-	width: 300px;
-	margin: 24px 12px 0 0;
+	width: 30%;
+	margin: 0 12px 0 0;
+	border-radius: 5px;
+	border: 1px solid #5CBDBD;
+	padding: 15px;
 }
 
 .form-label {
-    margin:10px auto;
-    font: 20px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  margin:10px auto;
+  font: 20px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
 

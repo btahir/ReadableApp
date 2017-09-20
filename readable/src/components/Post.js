@@ -33,7 +33,7 @@ class Post extends Component {
       <form className='post-form' onSubmit={handleSubmit( (values) => {this.savePost(values)} )}>
         <div>
           <label className="form-label">Title</label>
-          <div className="form-field">
+          <div>
             <Field
               validate={[required]}
               className="form-field"
@@ -45,8 +45,9 @@ class Post extends Component {
         </div>
         <div>
           <label className="form-label">Body</label>
-          <div className="form-field">
+          <div>
             <Field
+              className="form-field"
               validate={[required]}
               name="body"
               component="textarea"
@@ -57,13 +58,13 @@ class Post extends Component {
         </div>
         <div>
           <label className="form-label">Author</label>
-          <div className="form-field">
+          <div>
             <Field
+              className="form-field"
               name="author"
               validate={[required]}
               component={renderField}
               type="text"
-              className="form-field"
             />
           </div>
         </div>
@@ -131,9 +132,9 @@ const validate = values => {
 };
 const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
   <div>
-    <label>{label}</label>
-    <div className="form-field">
-      <input {...input} placeholder={label} type={type}/>
+    <label className="form-label">{label}</label>
+    <div>
+      <input  className="form-field" {...input} placeholder={label} type={type}/>
       {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
     </div>
   </div>

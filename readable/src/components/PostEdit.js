@@ -42,7 +42,7 @@ class PostEdit extends Component {
       <form className='post-form' onSubmit={handleSubmit( (values) => {this.savePost(values)} )}>
         <div>
           <label className="form-label">Title</label>
-          <div className="form-field">
+          <div>
             <Field
               className="form-field"
               name="title"
@@ -53,8 +53,9 @@ class PostEdit extends Component {
         </div>
         <div>
           <label className="form-label">Body</label>
-          <div className="form-field">
+          <div>
             <Field
+              className="form-field"
               name="body"
               component="textarea"
               type="text"
@@ -65,6 +66,9 @@ class PostEdit extends Component {
         <div>
           <button className="submit-btn" type="submit">
             Submit
+          </button>
+          <button className="reset-btn" onClick={() => {this.props.history.push(`/posts/${this.props.match.params.id}`)} }>
+            Cancel
           </button>
         </div>
       </form>

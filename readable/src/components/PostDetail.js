@@ -3,22 +3,13 @@ import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getOnePost, getComments, deletePost, addComment, toggleModal, commentBodyModal, commentAuthorModal } from '../actions';
 import Modal from './Modal';
+import { getDate } from '../utils/helper';
 
 class PostDetail extends Component {
 
   getUUID() {
     return Math.floor((1 + Math.random()) * 0x1000000000000)
       .toString(16);
-  }
-
-  getDate(unix_timestamp) {
-    let date = new Date(unix_timestamp);
-
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
-    let year = date.getFullYear();
-
-    return month + '/' + day + '/' + year;
   }
 
   showContent(item) {
@@ -44,7 +35,7 @@ class PostDetail extends Component {
               Author: {item.author}
               &nbsp;&nbsp;&nbsp;&nbsp; Category: {item.category}
               &nbsp;&nbsp;&nbsp;&nbsp; Score: {item.voteScore}
-              &nbsp;&nbsp;&nbsp;&nbsp; Date: {this.getDate(item.timestamp)}
+              &nbsp;&nbsp;&nbsp;&nbsp; Date: {getDate(item.timestamp)}
           </div>
         </div>
       );

@@ -4,6 +4,7 @@ import '../App.css';
 import { withRouter, Link } from 'react-router-dom';
 import { getAllCategories, getAllPosts, sortLatest, sortPopular } from '../actions';
 import { bindActionCreators } from 'redux';
+import { getDate } from '../utils/helper';
 // import Posts from './Posts';
 
 class Categories extends Component {
@@ -42,6 +43,12 @@ class Categories extends Component {
             <h3 className="post-title">
               <Link className="post-title" to={`/posts/${posts.id}`}>{posts.title}</Link>
             </h3>
+          <div className="post-misc">
+              Author: {posts.author}
+              &nbsp;&nbsp;&nbsp;&nbsp; Category: {posts.category}
+              &nbsp;&nbsp;&nbsp;&nbsp; Score: {posts.voteScore}
+              &nbsp;&nbsp;&nbsp;&nbsp; Date: {getDate(posts.timestamp)}
+          </div>
           </ul>
         ))
     );
@@ -88,6 +95,7 @@ function mapDispatchToProps(dispatch) {
     sortPopular: sortPopular
   }, dispatch);
 }
+
 
 export default withRouter(connect(
   mapStateToProps,
