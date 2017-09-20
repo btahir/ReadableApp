@@ -3,16 +3,12 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { addPost } from '../actions';
+import { getUUID } from '../utils/helper';
 
 class Post extends Component {
 
-  getUUID() {
-    return Math.floor((1 + Math.random()) * 0x1000000000000)
-      .toString(16);
-  }
-
   savePost(values) {
-    const uuid = this.getUUID();
+    const uuid = getUUID();
 
     const data = {
       'id': uuid,

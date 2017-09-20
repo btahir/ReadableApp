@@ -7,3 +7,8 @@ export function getDate(unix_timestamp) {
 
   return month + '/' + day + '/' + year;
 }
+
+export function getUUID() {
+  return Math.floor((1 + Math.random()) * 0x1000000000000)
+    .toString(16);
+}

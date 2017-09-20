@@ -12,6 +12,7 @@ export const ADD_COMMENT = 'ADD_COMMENT';
 export const TOGGLE_MODAL = 'TOGGLE_MODAL';
 export const ADD_COMMENT_BODY = 'ADD_COMMENT_BODY';
 export const ADD_COMMENT_AUTHOR = 'ADD_COMMENT_AUTHOR';
+export const VALID_MODAL = 'VALID_MODAL';
 
 export function getAllCategories() {
   const request = API.getCategories();
@@ -119,6 +120,12 @@ export function deletePost(data) {
 export const toggleModal = () => {
   return {
     type: TOGGLE_MODAL
+  };
+};
+
+export const validateModal = () => {
+  return {
+    type: VALID_MODAL
   };
 };
 

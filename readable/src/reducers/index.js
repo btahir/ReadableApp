@@ -13,7 +13,8 @@ import {
   ADD_COMMENT,
   TOGGLE_MODAL,
   ADD_COMMENT_BODY,
-  ADD_COMMENT_AUTHOR
+  ADD_COMMENT_AUTHOR,
+  VALID_MODAL
 } from '../actions';
 import { reducer as formReducer } from 'redux-form';
 
@@ -91,6 +92,7 @@ const initialModalState = {
   modalType: null,
   modalProps: {},
   isOpen: false,
+  valid: true,
   comment: '',
   author: ''
 }
@@ -109,6 +111,11 @@ function modal(state = initialModalState, action) {
       return {
         ...state,
         isOpen: !state.isOpen
+      };
+    case VALID_MODAL:
+      return {
+        ...state,
+        valid: false
       };
     case ADD_COMMENT_BODY:
       return {

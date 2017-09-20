@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getOnePost, getComments, deletePost, addComment, toggleModal, commentBodyModal, commentAuthorModal } from '../actions';
+import { getOnePost, getComments, deletePost, addComment, toggleModal, commentBodyModal, commentAuthorModal, validateModal } from '../actions';
 import Modal from './Modal';
-import { getDate } from '../utils/helper';
+import { getUUID, getDate } from '../utils/helper';
 
 class PostDetail extends Component {
-
-  getUUID() {
-    return Math.floor((1 + Math.random()) * 0x1000000000000)
-      .toString(16);
-  }
 
   showContent(item) {
     let post_or_comment = '';
@@ -33,7 +28,7 @@ class PostDetail extends Component {
           <div className="post-misc">
             <div className="padding-stuff" />
               Author: {item.author}
-              &nbsp;&nbsp;&nbsp;&nbsp; Category: {item.category}
+              &nbsp;&nbsp;&nbsp;&nbsp; {item.category ? 'Category: ' + item.category : ''}
               &nbsp;&nbsp;&nbsp;&nbsp; Score: {item.voteScore}
               &nbsp;&nbsp;&nbsp;&nbsp; Date: {getDate(item.timestamp)}
           </div>
@@ -74,25 +69,32 @@ class PostDetail extends Component {
     this.props.addCommentAuthor(event);
   }
 
+  validate() {
+    return !this.props.validate;
+  }
+
   newComment(comment, author) {
 
-    const uuid = this.getUUID();
+    if (comment === '' || author === '') {
+      this.props.validate();
+    } else {
+      const uuid = getUUID();
 
-    const comment_data = {
-      id: uuid,
-      timestamp: Date.now(),
-      body: comment,
-      author: author,
-      parentId: this.props.match.params.id
-    };
+      const comment_data = {
+        id: uuid,
+        timestamp: Date.now(),
+        body: comment,
+        author: author,
+        parentId: this.props.match.params.id
+      };
 
-    this.props.postComment(comment_data);
-    this.props.toggleModal();
-    window.location.reload();
+      this.props.postComment(comment_data);
+      this.props.toggleModal();
+      window.location.reload();
+    }
   }
 
   render() {
-
     // console.log(this.props)
     return (
       <div>
@@ -108,6 +110,9 @@ class PostDetail extends Component {
           onClose={() => this.props.toggleModal()}
           onSubmit={() => this.newComment(this.props.commentBody,this.props.commentAuthor)}>
           <div>
+            <div>
+              {this.props.isValid ? null : 'Fields cannot be blank'}
+            </div>
             <div className="comment-modal-label">
               Comment
             </div>
@@ -144,7 +149,8 @@ function mapStateToProps (state) {
     getComments: state.reducePosts.comments,
     isOpen: state.modal.isOpen,
     commentBody: state.modal.comment,
-    commentAuthor: state.modal.author
+    commentAuthor: state.modal.author,
+    isValid: state.modal.valid
   };
 }
 
@@ -157,6 +163,7 @@ function mapDispatchToProps(dispatch, ownProps) {
     addCommentBody: (event) => dispatch(commentBodyModal(event)),
     addCommentAuthor: (event) => dispatch(commentAuthorModal(event)),
     postComment: (data) => dispatch(addComment(data)),
+    validate: () => dispatch(validateModal())
 
   };
 }
