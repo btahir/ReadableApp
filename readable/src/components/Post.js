@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
 import { Field, reduxForm } from 'redux-form';
 import { addPost } from '../actions';
 
@@ -25,9 +24,7 @@ class Post extends Component {
     };
 
     this.props.history.push('/');
-    return addPost(data);
-
-    // return data;
+    return this.props.dispatch(addPost(data));
   }
 
   render() {
@@ -109,24 +106,14 @@ class Post extends Component {
           <button className="reset-btn" type="button" disabled={pristine || submitting} onClick={reset}>
             Clear Values
           </button>
+          <button className="reset-btn" type="button" onClick={() => {this.props.history.push('/')} }>
+            Cancel
+          </button>
         </div>
       </form>
     );
   }
 }
-
-function mapStateToProps (state) {
-  return {
-    newPost: state.reducePosts.newPost
-  };
-}
-
-// function mapDispatchToProps(dispatch, values) {
-//   return {
-//     dispatchPost: dispatch(addPost(values)),
-//     fetchPosts: getAllPosts,
-//   };
-// }
 
 // form validation stuff
 const required = value => value ? undefined : 'Required';
@@ -153,7 +140,7 @@ const renderField = ({ input, label, type, meta: { touched, error, warning } }) 
 );
 
 const initialComponent = withRouter(connect(
-  mapStateToProps,
+  null,
   null
 )(Post));
 

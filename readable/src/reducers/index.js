@@ -9,18 +9,13 @@ import {
   GET_COMMENTS,
   ADD_POST,
   DELETE_POST,
-  EDIT_POST
+  EDIT_POST,
+  ADD_COMMENT,
+  TOGGLE_MODAL,
+  ADD_COMMENT_BODY,
+  ADD_COMMENT_AUTHOR
 } from '../actions';
-// import {
-//   combineForms,
-//   createForms // optional
-// } from 'react-redux-form';
 import { reducer as formReducer } from 'redux-form';
-
-// const initialUserState = {
-//   firstName: '',
-//   lastName: ''
-// };
 
 function reduceCategories(state = [], action) {
   switch (action.type) {
@@ -51,6 +46,11 @@ function reducePosts(state = [], action) {
         ...state,
         comments: action.comments,
       };
+    case ADD_COMMENT:
+      return {
+        ...state,
+        newComment: action.newComment,
+      };
     case ADD_POST:
       return {
         ...state,
@@ -71,7 +71,6 @@ function reducePosts(state = [], action) {
 }
 
 function sortValue(state = [], action) {
-  // console.log('sortValue', action);
   switch(action.type) {
     case POPULAR_POST:
       return {
@@ -88,9 +87,48 @@ function sortValue(state = [], action) {
   }
 }
 
+const initialModalState = {
+  modalType: null,
+  modalProps: {},
+  isOpen: false,
+  comment: '',
+  author: ''
+}
+
+function modal(state = initialModalState, action) {
+  switch (action.type) {
+    // case SHOW_MODAL:
+    //   return {
+    //     modalType: action.modalType,
+    //     modalProps: action.modalProps,
+    //     isOpen: action.isOpen
+    //   };
+    // case HIDE_MODAL:
+    //   return initialModalState;
+    case TOGGLE_MODAL:
+      return {
+        ...state,
+        isOpen: !state.isOpen
+      };
+    case ADD_COMMENT_BODY:
+      return {
+        ...state,
+        comment: action.comment
+      };
+    case ADD_COMMENT_AUTHOR:
+      return {
+        ...state,
+        author: action.author
+      };
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   reduceCategories,
   reducePosts,
   sortValue,
+  modal,
   form: formReducer
 });

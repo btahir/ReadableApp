@@ -45,3 +45,10 @@ export const editPost = (post) =>
     headers: headers,
     body: JSON.stringify(post) })
     .then(res => res.json());
+
+export const addComment = (post) =>
+  fetch(`${api}/comments`, { 
+    method: 'post',
+    headers: headers,
+    body: JSON.stringify(post) })
+    .then(res => res.json());

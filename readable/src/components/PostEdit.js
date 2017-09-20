@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
 import { Field, reduxForm } from 'redux-form';
 import { editPost } from '../actions';
 
@@ -24,14 +23,12 @@ class PostEdit extends Component {
 
     this.props.history.push('/');
     return editPost(data);
-
-    // return data;
   }
 
   handleInitialize() {
     const initData = {
-      "title": this.props.postData.title,
-      "body": this.props.postData.body
+      'title': this.props.postData.title,
+      'body': this.props.postData.body
     };
 
     this.props.initialize(initData);
@@ -50,7 +47,7 @@ class PostEdit extends Component {
               className="form-field"
               name="title"
               type="text"
-              component={renderField}
+              component="input"
             />
           </div>
         </div>
@@ -80,13 +77,6 @@ function mapStateToProps (state) {
     postData: state.reducePosts.postDetail
   };
 }
-
-const renderField = field => (
-  <div>
-    <label>{field.input.label}</label>
-    <input {...field.input} />
-  </div>
-);
 
 
 const initialComponent = withRouter(connect(
