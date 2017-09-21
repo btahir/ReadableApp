@@ -10,6 +10,7 @@ export const DELETE_POST = 'DELETE_POST';
 export const EDIT_POST = 'EDIT_POST';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const EDIT_COMMENT = 'EDIT_COMMENT';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
 export const TOGGLE_MODAL = 'TOGGLE_MODAL';
 export const ADD_COMMENT_BODY = 'ADD_COMMENT_BODY';
 export const ADD_COMMENT_AUTHOR = 'ADD_COMMENT_AUTHOR';
@@ -180,6 +181,18 @@ export function editComment(data) {
       dispatch({
         type: EDIT_COMMENT,
         editedPost: data,
+      });
+    });
+  };
+}
+
+export function deleteComment(data) {
+  const request = API.deleteComment(data);
+
+  return (dispatch) => {
+    request.then(() => {
+      dispatch({
+        type: DELETE_COMMENT
       });
     });
   };

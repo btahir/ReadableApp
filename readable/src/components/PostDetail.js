@@ -3,7 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getOnePost, getComments, deletePost, addComment, 
   toggleModal, commentBodyModal, commentAuthorModal, validateModal, 
-  toggleEditModal, commentIdModal, editComment } from '../actions';
+  toggleEditModal, commentIdModal, editComment, deleteComment } from '../actions';
 import Modal from './Modal';
 import { getUUID, getDate } from '../utils/helper';
 
@@ -133,6 +133,11 @@ class PostDetail extends Component {
             onChange={event => this.captureCommentAuthor(event.target.value)}
           />
         </div>
+        <div className="footer">
+          <button className='btn-modal' onClick={() => {this.removeComment(this.props.commentID); }}>
+            Delete
+          </button>
+        </div>
       </Modal>
     );
   }
@@ -197,6 +202,12 @@ class PostDetail extends Component {
     }
   }
 
+  removeComment(comment_id) {
+    this.props.deleteComment(comment_id);
+    this.props.toggleEditModal();
+    window.location.reload();
+  }
+
   render() {
     // console.log(this.props)
     return (
@@ -244,6 +255,7 @@ function mapDispatchToProps(dispatch, ownProps) {
     addCommentAuthor: (event) => dispatch(commentAuthorModal(event)),
     postComment: (data) => dispatch(addComment(data)),
     editComment: (data) => dispatch(editComment(data)),
+    deleteComment: (id) => dispatch(deleteComment(id)),
     validate: () => dispatch(validateModal())
 
   };

@@ -12,6 +12,7 @@ import {
   EDIT_POST,
   ADD_COMMENT,
   EDIT_COMMENT,
+  DELETE_COMMENT,
   TOGGLE_MODAL,
   ADD_COMMENT_BODY,
   ADD_COMMENT_AUTHOR,
@@ -73,6 +74,10 @@ function reducePosts(state = [], action) {
       return {
         ...state,
         editedPost: action.editedPost,
+      };
+    case DELETE_COMMENT:
+      return {
+        ...state
       };
     default :
       return state;

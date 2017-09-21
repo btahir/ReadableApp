@@ -285,3 +285,7 @@ textarea {
 }
 
 .comment-style:hover{color: #5CBDBD; cursor: pointer;}
+
+.footer {
+	display: inline;
+}

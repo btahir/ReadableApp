@@ -60,4 +60,9 @@ export const editComment = (comment) =>
     body: JSON.stringify(comment) })
     .then(res => res.json());
 
+export const deleteComment = (id) =>
+  fetch(`${api}/comments/${id}`, { 
+    method: 'delete',
+    headers: headers });
+
 
