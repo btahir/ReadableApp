@@ -137,6 +137,10 @@ hr {
     padding: 0;
 }
 
+.hrComment {
+  display: inline-flex;
+}
+
 .post-form {
 	display: block;
 	margin-bottom: 0.5rem;
@@ -192,10 +196,6 @@ input[type="radio"], input[type="checkbox"] {
 
 .submit-btn:active{position:relative;top:2px;}
 .reset-btn:active{position:relative;top:2px;}
-
-.comment-content {
-	font: 12;
-}
 
 .comment-position {
 	display:inline;
@@ -270,3 +270,18 @@ textarea {
 	background-color:#FFFFFF;
 	border-color:#5CBDBD;
 }
+
+.comment-style {
+	background:none;
+	border:none;
+	color: #111;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+	line-height: 14px;
+	font-weight: 300;
+	text-align: justify;
+	text-justify: inter-word;
+	margin-top: 0;
+}
+
+.comment-style:hover{color: #5CBDBD; cursor: pointer;}

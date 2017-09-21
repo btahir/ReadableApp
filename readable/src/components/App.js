@@ -3,7 +3,7 @@ import '../App.css';
 import { withRouter, Route } from 'react-router-dom';
 import Categories from './Categories';
 import PostDetail from './PostDetail';
-import Post from './Post';
+import NewPost from './NewPost';
 import PostEdit from './PostEdit';
 import { connect } from 'react-redux';
 
@@ -60,7 +60,7 @@ class App extends Component {
         />
         <Route exact path="/post"
           render={() => (
-            <Post />
+            <NewPost />
           )}
         />
         <Route path="/posts/edit/:id"

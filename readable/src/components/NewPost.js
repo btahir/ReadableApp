@@ -5,7 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import { addPost } from '../actions';
 import { getUUID } from '../utils/helper';
 
-class Post extends Component {
+class NewPost extends Component {
 
   savePost(values) {
     const uuid = getUUID();
@@ -26,7 +26,7 @@ class Post extends Component {
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props;
     return (
-      <form className='post-form' onSubmit={handleSubmit( (values) => {this.savePost(values)} )}>
+      <form className='post-form' onSubmit={handleSubmit( (values) => {this.savePost(values);} )}>
         <div>
           <label className="form-label">Title</label>
           <div>
@@ -139,7 +139,7 @@ const renderField = ({ input, label, type, meta: { touched, error, warning } }) 
 const initialComponent = withRouter(connect(
   null,
   null
-)(Post));
+)(NewPost));
 
 export default reduxForm({
   form: 'post-details',

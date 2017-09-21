@@ -1,41 +1,58 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getOnePost, getComments, deletePost, addComment, toggleModal, commentBodyModal, commentAuthorModal, validateModal } from '../actions';
+import { getOnePost, getComments, deletePost, addComment, 
+  toggleModal, commentBodyModal, commentAuthorModal, validateModal, 
+  toggleEditModal, commentIdModal, editComment } from '../actions';
 import Modal from './Modal';
 import { getUUID, getDate } from '../utils/helper';
 
 class PostDetail extends Component {
 
   showContent(item) {
-    let post_or_comment = '';
-
     if(item) {
       if(item.category) {
-        post_or_comment = 'post-body';
+        return (
+          <div key={item.id}>
+            <div className="post-title">
+              {item.title}
+            </div>
+            <div className="post-body">
+              {item.body}
+            </div>
+            <div className="post-misc">
+              <div className="padding-stuff" />
+                Author: {item.author}
+                &nbsp;&nbsp;&nbsp;&nbsp; Category: {item.category}
+                &nbsp;&nbsp;&nbsp;&nbsp; Score: {item.voteScore}
+                &nbsp;&nbsp;&nbsp;&nbsp; Date: {getDate(item.timestamp)}
+            </div>
+          </div>
+        );
       } else {
-        post_or_comment = 'comment-body';
+        return (
+          <div key={item.id}>
+            <div className="comment-body">
+              <button onClick={() => {this.editCommentModal(item);} } className="comment-style">{item.body}</button>
+            </div>
+            <div className="post-misc">
+              <div className="padding-stuff" />
+                Author: {item.author}
+                &nbsp;&nbsp;&nbsp;&nbsp; Score: {item.voteScore}
+                &nbsp;&nbsp;&nbsp;&nbsp; Date: {getDate(item.timestamp)}
+            </div>
+            <div className="hrComment" />
+          </div>
+        );
       }
-
-      return (
-        <div key={item.id}>
-          <div className="post-title">
-            {item.title}
-          </div>
-          <div className={post_or_comment}>
-            {item.body}
-          </div>
-          <div className="post-misc">
-            <div className="padding-stuff" />
-              Author: {item.author}
-              &nbsp;&nbsp;&nbsp;&nbsp; {item.category ? 'Category: ' + item.category : ''}
-              &nbsp;&nbsp;&nbsp;&nbsp; Score: {item.voteScore}
-              &nbsp;&nbsp;&nbsp;&nbsp; Date: {getDate(item.timestamp)}
-          </div>
-        </div>
-      );
     }
+  }
 
+  editCommentModal(item) {
+    this.props.toggleEditModal();
+    this.props.addCommentID(item.id);
+    this.props.addCommentBody(item.body);
+    this.props.addCommentAuthor(item.author);
   }
 
   showPost() {
@@ -52,10 +69,78 @@ class PostDetail extends Component {
     this.props.history.push('/');
   }
 
+  showCommentModal() {
+    return (
+      <Modal show={this.props.isOpen}
+        onClose={() => this.props.toggleModal()}
+        onSubmit={() => this.newComment(this.props.commentBody,this.props.commentAuthor)}>
+        <div>
+          <div>
+            {this.props.isValid ? null : 'Fields cannot be blank'}
+          </div>
+          <div className="comment-modal-label">
+            Comment
+          </div>
+          <textarea
+            className="comment-modal-field"
+            type="text"
+            placeholder="Add Comment"
+            onChange={event => this.captureCommentBody(event.target.value)}
+          />
+        </div>
+        <div>
+          <div className="comment-modal-label">
+            Author
+          </div>
+          <input
+            className="comment-modal-field"
+            type="text"
+            placeholder="Author"
+            onChange={event => this.captureCommentAuthor(event.target.value)}
+          />
+        </div>
+      </Modal>
+    );
+  }
+
+  showEditCommentModal() {
+    return (
+      <Modal show={this.props.isEditOpen}
+        onClose={() => this.props.toggleEditModal()}
+        onSubmit={() => this.changeComment(this.props.commentID, this.props.commentBody,this.props.commentAuthor)}>
+        <div>
+          <div>
+            {this.props.isValid ? null : 'Fields cannot be blank'}
+          </div>
+          <div className="comment-modal-label">
+            Comment
+          </div>
+          <textarea
+            className="comment-modal-field"
+            type="text"
+            value={this.props.commentBody}
+            onChange={event => this.captureCommentBody(event.target.value)}
+          />
+        </div>
+        <div>
+          <div className="comment-modal-label">
+            Author
+          </div>
+          <input
+            className="comment-modal-field"
+            type="text"
+            value={this.props.commentAuthor}
+            onChange={event => this.captureCommentAuthor(event.target.value)}
+          />
+        </div>
+      </Modal>
+    );
+  }
+
   showComment() {
     const comments = this.props.getComments;
     return (
-      <div className="comment-content"> 
+      <div> 
         {comments && comments.map(comment => this.showContent(comment))}
       </div>
     );
@@ -79,7 +164,6 @@ class PostDetail extends Component {
       this.props.validate();
     } else {
       const uuid = getUUID();
-
       const comment_data = {
         id: uuid,
         timestamp: Date.now(),
@@ -90,6 +174,25 @@ class PostDetail extends Component {
 
       this.props.postComment(comment_data);
       this.props.toggleModal();
+      window.location.reload();
+    }
+  }
+
+  changeComment(comment_id, comment, author) {
+
+    if (comment === '' || author === '') {
+      this.props.validate();
+    } else {
+      const comment_data = {
+        id: comment_id,
+        timestamp: Date.now(),
+        body: comment,
+        author: author,
+        parentId: this.props.match.params.id
+      };
+
+      this.props.editComment(comment_data);
+      this.props.toggleEditModal();
       window.location.reload();
     }
   }
@@ -106,35 +209,8 @@ class PostDetail extends Component {
         <div className="post-position">{this.showPost()}</div>
         <div className="comment-position">Comments</div>
         <button onClick={() => {this.props.toggleModal()} } className="btn-comment">Add Comment</button>
-        <Modal show={this.props.isOpen}
-          onClose={() => this.props.toggleModal()}
-          onSubmit={() => this.newComment(this.props.commentBody,this.props.commentAuthor)}>
-          <div>
-            <div>
-              {this.props.isValid ? null : 'Fields cannot be blank'}
-            </div>
-            <div className="comment-modal-label">
-              Comment
-            </div>
-            <textarea
-              className="comment-modal-field"
-              type="text"
-              placeholder="Add Comment"
-              onChange={event => this.captureCommentBody(event.target.value)}
-            />
-          </div>
-          <div>
-            <div className="comment-modal-label">
-              Author
-            </div>
-            <input
-              className="comment-modal-field"
-              type="text"
-              placeholder="Author"
-              onChange={event => this.captureCommentAuthor(event.target.value)}
-            />
-          </div>
-        </Modal>
+        {this.showCommentModal()}
+        {this.showEditCommentModal()}
         <hr />
         <div className="post-position">{this.showComment()}</div>
       </div>
@@ -148,8 +224,10 @@ function mapStateToProps (state) {
     getPost: state.reducePosts.postDetail,
     getComments: state.reducePosts.comments,
     isOpen: state.modal.isOpen,
+    isEditOpen: state.modal.isEditOpen,
     commentBody: state.modal.comment,
     commentAuthor: state.modal.author,
+    commentID: state.modal.comment_id,
     isValid: state.modal.valid
   };
 }
@@ -160,9 +238,12 @@ function mapDispatchToProps(dispatch, ownProps) {
     dispatchComments: dispatch(getComments(ownProps.match.params.id)),
     deletePost: () => dispatch(deletePost(ownProps.match.params.id)),
     toggleModal: () => dispatch(toggleModal()),
+    toggleEditModal: () => dispatch(toggleEditModal()),
+    addCommentID: (event) => dispatch(commentIdModal(event)),
     addCommentBody: (event) => dispatch(commentBodyModal(event)),
     addCommentAuthor: (event) => dispatch(commentAuthorModal(event)),
     postComment: (data) => dispatch(addComment(data)),
+    editComment: (data) => dispatch(editComment(data)),
     validate: () => dispatch(validateModal())
 
   };

@@ -11,10 +11,13 @@ import {
   DELETE_POST,
   EDIT_POST,
   ADD_COMMENT,
+  EDIT_COMMENT,
   TOGGLE_MODAL,
   ADD_COMMENT_BODY,
   ADD_COMMENT_AUTHOR,
-  VALID_MODAL
+  VALID_MODAL,
+  TOGGLE_EDIT_MODAL,
+  ADD_COMMENT_ID
 } from '../actions';
 import { reducer as formReducer } from 'redux-form';
 
@@ -51,6 +54,11 @@ function reducePosts(state = [], action) {
       return {
         ...state,
         newComment: action.newComment,
+      };
+    case EDIT_COMMENT:
+      return {
+        ...state,
+        editedComment: action.editedComment,
       };
     case ADD_POST:
       return {
@@ -92,9 +100,11 @@ const initialModalState = {
   modalType: null,
   modalProps: {},
   isOpen: false,
+  isEditOpen: false,
   valid: true,
   comment: '',
-  author: ''
+  author: '',
+  comment_id: ''
 }
 
 function modal(state = initialModalState, action) {
@@ -112,6 +122,11 @@ function modal(state = initialModalState, action) {
         ...state,
         isOpen: !state.isOpen
       };
+    case TOGGLE_EDIT_MODAL:
+      return {
+        ...state,
+        isEditOpen: !state.isEditOpen
+      };
     case VALID_MODAL:
       return {
         ...state,
@@ -121,6 +136,11 @@ function modal(state = initialModalState, action) {
       return {
         ...state,
         comment: action.comment
+      };
+    case ADD_COMMENT_ID:
+      return {
+        ...state,
+        comment_id: action.comment_id
       };
     case ADD_COMMENT_AUTHOR:
       return {

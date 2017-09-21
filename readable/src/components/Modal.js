@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
 
 class Modal extends React.Component {
   render() {
@@ -32,10 +31,5 @@ Modal.propTypes = {
   show: PropTypes.bool,
   children: PropTypes.node
 };
-
-// export default connect(
-//   null,
-//   null
-// )(Modal);
 
 export default Modal;

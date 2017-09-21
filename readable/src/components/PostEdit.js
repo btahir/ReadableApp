@@ -11,7 +11,6 @@ class PostEdit extends Component {
   }
 
   savePost(values) {
-
     const data = {
       'id': this.props.match.params.id,
       'title': values.title,
@@ -30,7 +29,6 @@ class PostEdit extends Component {
       'title': this.props.postData.title,
       'body': this.props.postData.body
     };
-
     this.props.initialize(initData);
   }
 
