@@ -46,7 +46,7 @@ class Categories extends Component {
         .map(posts => (
           <ul key={posts.id} className="post-id">
             <div className="vote">
-              <img onClick={() => {this.upVote(posts.id,posts.voteScore)}} src={require('../img/arrow-up.png')} alt="boohoo" height="24" width="24" className="img-responsive"/>
+              <img onClick={() => {this.upVote(posts.id)}} src={require('../img/arrow-up.png')} alt="boohoo" height="24" width="24" className="img-responsive"/>
               <img  onClick={() => {this.downVote(posts.id)}} src={require('../img/arrow-down.png')} alt="boohoo" height="24" width="24" className="img-responsive"/>
             </div>
             <h3 className="post-title">
@@ -63,7 +63,7 @@ class Categories extends Component {
     );
   }
 
-  upVote(id, vote) {
+  upVote(id) {
     const data = {
       id: id,
       option: 'upVote'
@@ -109,8 +109,7 @@ function mapStateToProps(state) {
   return {
     mapCategories: state.reduceCategories.categories,
     allPosts: state.reducePosts.posts,
-    sortValue: state.sortValue,
-    updatedVoteScore: state.reducePosts.newVote
+    sortValue: state.sortValue
   };
 }
 

@@ -71,16 +71,13 @@ function reducePosts(state = [], action) {
     case VOTE_POST:
       return {
         ...state,
-        post: state.posts.forEach(post => {
+        posts: state.posts.map(post => {
           if(post.id === action.post.id) {
-            if(action.voteType === 'upVote') {
-              post.voteScore = action.newVote;
-            } else if(action.voteType === 'downVote') {
-              post.voteScore = action.newVote;
+              return action.post;
             }
-          }
-        }),
-        newVote: action.newVote
+          else {
+            return post;
+          }})
       };
     case DELETE_POST:
       return {

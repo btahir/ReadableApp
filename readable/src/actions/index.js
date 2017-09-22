@@ -206,9 +206,7 @@ export function votePost(data) {
     request.then((res) => {
       dispatch({
         type: VOTE_POST,
-        voteType: data.option,
-        post: res,
-        newVote: res.voteScore
+        post: res
       });
     });
   };
