@@ -19,7 +19,8 @@ import {
   VALID_MODAL,
   TOGGLE_EDIT_MODAL,
   ADD_COMMENT_ID,
-  VOTE_POST
+  VOTE_POST,
+  VOTE_COMMENT
 } from '../actions';
 import { reducer as formReducer } from 'redux-form';
 
@@ -77,6 +78,17 @@ function reducePosts(state = [], action) {
             }
           else {
             return post;
+          }})
+      };
+    case VOTE_COMMENT:
+      return {
+        ...state,
+        comments: state.comments.map(comment => {
+          if(comment.id === action.comment.id) {
+              return action.comment;
+            }
+          else {
+            return comment;
           }})
       };
     case DELETE_POST:

@@ -312,4 +312,10 @@ textarea {
 
 .img-responsive:hover{color: #5CBDBD; cursor: pointer;}
 
+.vote-comment {
+	margin: 0 20px 40px 0;
+	width: 15px;
+	float: left; 
+	clear: left;
+}
 

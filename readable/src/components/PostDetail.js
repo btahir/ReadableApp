@@ -3,7 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getOnePost, getComments, deletePost, addComment, 
   toggleModal, commentBodyModal, commentAuthorModal, validateModal, 
-  toggleEditModal, commentIdModal, editComment, deleteComment } from '../actions';
+  toggleEditModal, commentIdModal, editComment, deleteComment, voteComment } from '../actions';
 import Modal from './Modal';
 import { getUUID, getDate } from '../utils/helper';
 
@@ -32,6 +32,10 @@ class PostDetail extends Component {
       } else {
         return (
           <div key={item.id}>
+            <div className="vote-comment">
+              <img onClick={() => {this.upVote(item.id)}} src={require('../img/arrow-up.png')} alt="boohoo" height="24" width="24" className="img-responsive"/>
+              <img  onClick={() => {this.downVote(item.id)}} src={require('../img/arrow-down.png')} alt="boohoo" height="24" width="24" className="img-responsive"/>
+            </div>
             <div className="comment-body">
               <button onClick={() => {this.editCommentModal(item);} } className="comment-style">{item.body}</button>
             </div>
@@ -67,6 +71,22 @@ class PostDetail extends Component {
   delPost(id) {
     this.props.deletePost(id);
     this.props.history.push('/');
+  }
+
+  upVote(id) {
+    const data = {
+      id: id,
+      option: 'upVote'
+    };
+    this.props.voteComment(data);
+  }
+
+  downVote(id) {
+    const data = {
+      id: id,
+      option: 'downVote'
+    };
+    this.props.voteComment(data);
   }
 
   showCommentModal() {
@@ -219,7 +239,7 @@ class PostDetail extends Component {
         </div>
         <div className="post-position">{this.showPost()}</div>
         <div className="comment-position">Comments</div>
-        <button onClick={() => {this.props.toggleModal()} } className="btn-comment">Add Comment</button>
+        <button onClick={() => {this.props.toggleModal();} } className="btn-comment">Add Comment</button>
         {this.showCommentModal()}
         {this.showEditCommentModal()}
         <hr />
@@ -256,8 +276,8 @@ function mapDispatchToProps(dispatch, ownProps) {
     postComment: (data) => dispatch(addComment(data)),
     editComment: (data) => dispatch(editComment(data)),
     deleteComment: (id) => dispatch(deleteComment(id)),
-    validate: () => dispatch(validateModal())
-
+    validate: () => dispatch(validateModal()),
+    voteComment: (data) => dispatch(voteComment(data))
   };
 }
 

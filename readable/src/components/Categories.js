@@ -12,12 +12,6 @@ class Categories extends Component {
     this.props.fetchCategories();
   }
 
-  // shouldComponentUpdate(nextProps) {
-  //   const differentTitle = this.props.updatedVoteScore !== nextProps.updatedVoteScore;
-  //   console.log(differentTitle)
-  //   return differentTitle || true
-  // }
-
   sortPosts() {
     const { allPosts } = this.props;
     const { sortValue } = this.props;

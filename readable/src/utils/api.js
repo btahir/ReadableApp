@@ -72,3 +72,10 @@ export const votePost = (post) =>
     body: JSON.stringify(post) })
     .then(res => res.json());
 
+export const voteComment = (comment) =>
+  fetch(`${api}/comments/${comment.id}`, {
+    method: 'post',
+    headers: headers,
+    body: JSON.stringify(comment) })
+    .then(res => res.json());
+
