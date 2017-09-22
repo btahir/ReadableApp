@@ -17,6 +17,7 @@ export const ADD_COMMENT_AUTHOR = 'ADD_COMMENT_AUTHOR';
 export const VALID_MODAL = 'VALID_MODAL';
 export const TOGGLE_EDIT_MODAL = 'TOGGLE_EDIT_MODAL';
 export const ADD_COMMENT_ID = 'ADD_COMMENT_ID';
+export const VOTE_POST = 'VOTE_POST';
 
 export function getAllCategories() {
   const request = API.getCategories();
@@ -198,4 +199,18 @@ export function deleteComment(data) {
   };
 }
 
+export function votePost(data) {
+  const request = API.votePost(data);
+
+  return (dispatch) => {
+    request.then((res) => {
+      dispatch({
+        type: VOTE_POST,
+        voteType: data.option,
+        post: res,
+        newVote: res.voteScore
+      });
+    });
+  };
+}
 

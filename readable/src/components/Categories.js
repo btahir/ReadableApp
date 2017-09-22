@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../App.css';
 import { withRouter, Link } from 'react-router-dom';
-import { getAllCategories, getAllPosts, sortLatest, sortPopular } from '../actions';
+import { getAllCategories, getAllPosts, sortLatest, sortPopular, votePost } from '../actions';
 import { bindActionCreators } from 'redux';
 import { getDate } from '../utils/helper';
 
@@ -11,6 +11,12 @@ class Categories extends Component {
     this.props.fetchPosts();
     this.props.fetchCategories();
   }
+
+  // shouldComponentUpdate(nextProps) {
+  //   const differentTitle = this.props.updatedVoteScore !== nextProps.updatedVoteScore;
+  //   console.log(differentTitle)
+  //   return differentTitle || true
+  // }
 
   sortPosts() {
     const { allPosts } = this.props;
@@ -39,6 +45,10 @@ class Categories extends Component {
         .filter( posts => this.props.filterCategory.includes(posts.category)) // filter category
         .map(posts => (
           <ul key={posts.id} className="post-id">
+            <div className="vote">
+              <img onClick={() => {this.upVote(posts.id,posts.voteScore)}} src={require('../img/arrow-up.png')} alt="boohoo" height="24" width="24" className="img-responsive"/>
+              <img  onClick={() => {this.downVote(posts.id)}} src={require('../img/arrow-down.png')} alt="boohoo" height="24" width="24" className="img-responsive"/>
+            </div>
             <h3 className="post-title">
               <Link className="post-title" to={`/posts/${posts.id}`}>{posts.title}</Link>
             </h3>
@@ -53,7 +63,24 @@ class Categories extends Component {
     );
   }
 
+  upVote(id, vote) {
+    const data = {
+      id: id,
+      option: 'upVote'
+    };
+    this.props.votePost(data);
+  }
+
+  downVote(id) {
+    const data = {
+      id: id,
+      option: 'downVote'
+    };
+    this.props.votePost(data);
+  }
+
   render() {
+    // console.log(this.props)
     return (
       <div className="App2" >
         <div className="nav-bar">
@@ -82,7 +109,8 @@ function mapStateToProps(state) {
   return {
     mapCategories: state.reduceCategories.categories,
     allPosts: state.reducePosts.posts,
-    sortValue: state.sortValue
+    sortValue: state.sortValue,
+    updatedVoteScore: state.reducePosts.newVote
   };
 }
 
@@ -91,7 +119,8 @@ function mapDispatchToProps(dispatch) {
     fetchCategories: getAllCategories,
     fetchPosts: getAllPosts,
     sortLatest: sortLatest,
-    sortPopular: sortPopular
+    sortPopular: sortPopular,
+    votePost: votePost
   }, dispatch);
 }
 

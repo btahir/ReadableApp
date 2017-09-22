@@ -18,7 +18,8 @@ import {
   ADD_COMMENT_AUTHOR,
   VALID_MODAL,
   TOGGLE_EDIT_MODAL,
-  ADD_COMMENT_ID
+  ADD_COMMENT_ID,
+  VOTE_POST
 } from '../actions';
 import { reducer as formReducer } from 'redux-form';
 
@@ -35,6 +36,7 @@ function reduceCategories(state = [], action) {
 }
 
 function reducePosts(state = [], action) {
+  // const { posts, voteScore} = action;
   switch (action.type) {
     case FETCH_POST:
       return {
@@ -65,6 +67,20 @@ function reducePosts(state = [], action) {
       return {
         ...state,
         newPost: action.newPost,
+      };
+    case VOTE_POST:
+      return {
+        ...state,
+        post: state.posts.forEach(post => {
+          if(post.id === action.post.id) {
+            if(action.voteType === 'upVote') {
+              post.voteScore = action.newVote;
+            } else if(action.voteType === 'downVote') {
+              post.voteScore = action.newVote;
+            }
+          }
+        }),
+        newVote: action.newVote
       };
     case DELETE_POST:
       return {
@@ -110,7 +126,7 @@ const initialModalState = {
   comment: '',
   author: '',
   comment_id: ''
-}
+};
 
 function modal(state = initialModalState, action) {
   switch (action.type) {
