@@ -15,18 +15,17 @@ class PostDetail extends Component {
       if(item.category) {
         return (
           <div key={item.id}>
-            <Vote voteData={{id: item.id, item: 'postDetail'}}  classStyle="vote" />
+            <Vote voteData={{id: item.id, item: 'postDetail', score: item.voteScore}}  classStyle="vote-post-detail" />
             <div className="post-title">
               {item.title}
             </div>
             <div className="post-body">
               {item.body}
             </div>
-            <div className="post-misc">
+            <div className="post-misc-detail">
               <div className="padding-stuff" />
                 Author: {item.author}
                 &nbsp;&nbsp;&nbsp;&nbsp; Category: {item.category}
-                &nbsp;&nbsp;&nbsp;&nbsp; Score: {item.voteScore}
                 &nbsp;&nbsp;&nbsp;&nbsp; Date: {getDate(item.timestamp)}
             </div>
           </div>
@@ -34,14 +33,13 @@ class PostDetail extends Component {
       } else {
         return (
           <div key={item.id}>
-            <Vote voteData={{id: item.id, item: 'comment'}}  classStyle="vote-comment" />
+            <Vote voteData={{id: item.id, item: 'comment', score: item.voteScore}}  classStyle="vote-comment" />
             <div className="comment-body">
               <button onClick={() => {this.editCommentModal(item);} } className="comment-style">{item.body}</button>
             </div>
-            <div className="post-misc">
+            <div className="post-misc-detail">
               <div className="padding-stuff" />
                 Author: {item.author}
-                &nbsp;&nbsp;&nbsp;&nbsp; Score: {item.voteScore}
                 &nbsp;&nbsp;&nbsp;&nbsp; Date: {getDate(item.timestamp)}
             </div>
             <div className="hrComment" />

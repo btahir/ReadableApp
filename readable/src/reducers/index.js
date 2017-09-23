@@ -38,7 +38,6 @@ function reduceCategories(state = [], action) {
 }
 
 function reducePosts(state = [], action) {
-  const { postDetail } = state;
   switch (action.type) {
     case FETCH_POST:
       return {

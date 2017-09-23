@@ -23,6 +23,9 @@ class Vote extends Component {
     return (
       <div className={this.props.classStyle}>
         <img onClick={() => {this.moveVote('upVote'); }} src={require('../img/arrow-up.png')} alt="boohoo" height="24" width="24" className="img-responsive"/>
+        <div className="between-arrows">
+          {this.props.voteData.score}
+        </div>
         <img  onClick={() => {this.moveVote('downVote'); }} src={require('../img/arrow-down.png')} alt="boohoo" height="24" width="24" className="img-responsive"/>
       </div>
     );

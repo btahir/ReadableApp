@@ -40,14 +40,13 @@ class Categories extends Component {
         .filter( posts => this.props.filterCategory.includes(posts.category)) // filter category
         .map(posts => (
           <ul key={posts.id} className="post-id">
-            <Vote voteData={{id: posts.id, item: 'post'}}  classStyle="vote"/>
+            <Vote voteData={{id: posts.id, item: 'post', score: posts.voteScore}}  classStyle="vote-post"/>
             <h3 className="post-title">
               <Link className="post-title" to={`/posts/${posts.id}`}>{posts.title}</Link>
             </h3>
             <div className="post-misc">
               Author: {posts.author}
               &nbsp;&nbsp;&nbsp;&nbsp; Category: {posts.category}
-              &nbsp;&nbsp;&nbsp;&nbsp; Score: {posts.voteScore}
               &nbsp;&nbsp;&nbsp;&nbsp; Date: {getDate(posts.timestamp)}
             </div>
           </ul>
