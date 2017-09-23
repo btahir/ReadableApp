@@ -20,6 +20,7 @@ import {
   TOGGLE_EDIT_MODAL,
   ADD_COMMENT_ID,
   VOTE_POST,
+  VOTE_POST_DETAIL,
   VOTE_COMMENT
 } from '../actions';
 import { reducer as formReducer } from 'redux-form';
@@ -37,7 +38,7 @@ function reduceCategories(state = [], action) {
 }
 
 function reducePosts(state = [], action) {
-  // const { posts, voteScore} = action;
+  const { postDetail } = state;
   switch (action.type) {
     case FETCH_POST:
       return {
@@ -47,7 +48,7 @@ function reducePosts(state = [], action) {
     case FETCH_ONE_POST:
       return {
         ...state,
-        postDetail: action.postDetail,
+        postDetail: action.post,
       };
     case GET_COMMENTS:
       return {
@@ -79,6 +80,11 @@ function reducePosts(state = [], action) {
           else {
             return post;
           }})
+      };
+    case VOTE_POST_DETAIL:
+      return {
+        ...state,
+        postDetail: action.post
       };
     case VOTE_COMMENT:
       return {

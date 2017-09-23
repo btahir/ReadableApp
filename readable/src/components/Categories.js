@@ -5,6 +5,7 @@ import { withRouter, Link } from 'react-router-dom';
 import { getAllCategories, getAllPosts, sortLatest, sortPopular, votePost } from '../actions';
 import { bindActionCreators } from 'redux';
 import { getDate } from '../utils/helper';
+import Vote from './Vote';
 
 class Categories extends Component {
   componentWillMount() {
@@ -39,10 +40,7 @@ class Categories extends Component {
         .filter( posts => this.props.filterCategory.includes(posts.category)) // filter category
         .map(posts => (
           <ul key={posts.id} className="post-id">
-            <div className="vote">
-              <img onClick={() => {this.upVote(posts.id)}} src={require('../img/arrow-up.png')} alt="boohoo" height="24" width="24" className="img-responsive"/>
-              <img  onClick={() => {this.downVote(posts.id)}} src={require('../img/arrow-down.png')} alt="boohoo" height="24" width="24" className="img-responsive"/>
-            </div>
+            <Vote voteData={{id: posts.id, item: 'post'}}  classStyle="vote"/>
             <h3 className="post-title">
               <Link className="post-title" to={`/posts/${posts.id}`}>{posts.title}</Link>
             </h3>

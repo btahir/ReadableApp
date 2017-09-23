@@ -18,6 +18,7 @@ export const VALID_MODAL = 'VALID_MODAL';
 export const TOGGLE_EDIT_MODAL = 'TOGGLE_EDIT_MODAL';
 export const ADD_COMMENT_ID = 'ADD_COMMENT_ID';
 export const VOTE_POST = 'VOTE_POST';
+export const VOTE_POST_DETAIL = 'VOTE_POST_DETAIL';
 export const VOTE_COMMENT = 'VOTE_COMMENT';
 
 export function getAllCategories() {
@@ -53,7 +54,7 @@ export function getOnePost(id) {
     request.then((data) => {
       dispatch({
         type: FETCH_ONE_POST,
-        postDetail: data,
+        post: data,
       });
     });
   };
@@ -207,6 +208,19 @@ export function votePost(data) {
     request.then((res) => {
       dispatch({
         type: VOTE_POST,
+        post: res
+      });
+    });
+  };
+}
+
+export function votePostDetail(data) {
+  const request = API.votePost(data);
+
+  return (dispatch) => {
+    request.then((res) => {
+      dispatch({
+        type: VOTE_POST_DETAIL,
         post: res
       });
     });
