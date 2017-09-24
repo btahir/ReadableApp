@@ -3,9 +3,9 @@ import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getOnePost, getComments, deletePost, addComment, 
   toggleModal, commentBodyModal, commentAuthorModal, validateModal, 
-  toggleEditModal, commentIdModal, editComment, deleteComment, LATEST } from '../actions';
+  toggleEditModal, commentIdModal, editComment, deleteComment } from '../actions';
 import Modal from './Modal';
-import { getUUID, getDate } from '../utils/helper';
+import { getUUID, getDate, sortItems} from '../utils/helper';
 import Vote from './Vote';
 import Sort from './Sort';
 
@@ -144,25 +144,8 @@ class PostDetail extends Component {
     );
   }
 
-  sortComments() {
-    const { getComments } = this.props;
-
-    if (getComments) {
-      if (this.props.sortValue.sortValue === LATEST) {
-        getComments.sort(function (a, b) {
-          return b.timestamp - a.timestamp;
-        });
-      } else {
-        getComments.sort(function (a, b) {
-          return b.voteScore - a.voteScore;
-        });
-      }
-      return getComments;
-    }
-  }
-
   showComment() {
-    const comments = this.sortComments();
+    const comments = sortItems(this.props.getComments, this.props.sortValue.sortValue);
     return (
       <div> 
         {comments && comments.map(comment => this.showContent(comment))}
@@ -228,7 +211,7 @@ class PostDetail extends Component {
   }
 
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <div>
         <div>

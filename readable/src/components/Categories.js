@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../App.css';
 import { withRouter, Link } from 'react-router-dom';
-import { getAllCategories, getAllPosts, votePost, LATEST } from '../actions';
+import { getAllCategories, getAllPosts, votePost } from '../actions';
 import { bindActionCreators } from 'redux';
-import { getDate } from '../utils/helper';
+import { getDate, sortItems } from '../utils/helper';
 import Vote from './Vote';
 import Sort from './Sort';
 
@@ -14,25 +14,8 @@ class Categories extends Component {
     this.props.fetchCategories();
   }
 
-  sortPosts() {
-    const { allPosts } = this.props;
-
-    if (allPosts) {
-      if (this.props.sortValue.sortValue === LATEST) {
-        allPosts.sort(function (a, b) {
-          return b.timestamp - a.timestamp;
-        });
-      } else {
-        allPosts.sort(function (a, b) {
-          return b.voteScore - a.voteScore;
-        });
-      }
-      return allPosts;
-    }
-  }
-
   showPosts() {
-    const sortedPosts = this.sortPosts();
+    const sortedPosts = sortItems(this.props.allPosts, this.props.sortValue.sortValue);
 
     return (
       sortedPosts && sortedPosts
