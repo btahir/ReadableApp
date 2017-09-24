@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../App.css';
 import { withRouter, Link } from 'react-router-dom';
-import { getAllCategories, getAllPosts, sortLatest, sortPopular, votePost } from '../actions';
+import { getAllCategories, getAllPosts, votePost } from '../actions';
 import { bindActionCreators } from 'redux';
 import { getDate } from '../utils/helper';
 import Vote from './Vote';
+import Sort from './Sort';
 
 class Categories extends Component {
   componentWillMount() {
@@ -15,20 +16,19 @@ class Categories extends Component {
 
   sortPosts() {
     const { allPosts } = this.props;
-    const { sortValue } = this.props;
 
     if (allPosts) {
-      if (sortValue.sortValue === 'LATEST_POST') {
-        allPosts.sort(post => 
-          post.timestamp
-        );
-      } else if (sortValue.sortValue === 'POPULAR_POST')  {
-        allPosts.sort(post => 
-          post.voteScore
-        ).reverse();      
+      if (this.props.sortValue.sortValue === 'LATEST_POST') {
+        allPosts.sort(function (a, b) {
+          return b.timestamp - a.timestamp;
+        });
+      } else {
+        allPosts.sort(function (a, b) {
+          return b.voteScore - a.voteScore;
+        });
       }
+      return allPosts;
     }
-    return allPosts;
   }
 
   showPosts() {
@@ -54,22 +54,6 @@ class Categories extends Component {
     );
   }
 
-  upVote(id) {
-    const data = {
-      id: id,
-      option: 'upVote'
-    };
-    this.props.votePost(data);
-  }
-
-  downVote(id) {
-    const data = {
-      id: id,
-      option: 'downVote'
-    };
-    this.props.votePost(data);
-  }
-
   render() {
     // console.log(this.props)
     return (
@@ -84,8 +68,7 @@ class Categories extends Component {
           <hr/>
         </div>
         <div className="sort-buttons">
-          <button onClick={this.props.sortPopular} className="btn-popular">Popular</button>
-          <button onClick={this.props.sortLatest} className="btn-latest">Latest</button>
+          <Sort />
           <button className="btn-new-post"><Link className="link-new-post" to="/post">New Post</Link></button>
         </div>
         <div className="Posts">
@@ -108,8 +91,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     fetchCategories: getAllCategories,
     fetchPosts: getAllPosts,
-    sortLatest: sortLatest,
-    sortPopular: sortPopular,
     votePost: votePost
   }, dispatch);
 }

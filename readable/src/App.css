@@ -15,6 +15,10 @@ body {
   color:#000
 }
 
+.sort-buttons {
+	display: inline-block;
+}
+
 .padding-stuff {
 	padding: 10px 0;
 }

@@ -117,11 +117,9 @@ const required = value => value ? undefined : 'Required';
 const validate = values => {
   const errors = {};
   if (!values.title) {
-    // console.log('title is required');
     errors.title = 'Required';
   }
   if (!values.author) {
-    // console.log('author is required');
     errors.author = 'Required';
   }
   return errors;

@@ -67,7 +67,7 @@ function reducePosts(state = [], action) {
     case ADD_POST:
       return {
         ...state,
-        newPost: action.newPost,
+        posts: [...state.posts, action.newPost] // can also use state.posts.concat(action.newPost)
       };
     case VOTE_POST:
       return {
