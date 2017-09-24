@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../App.css';
 import { withRouter, Link } from 'react-router-dom';
-import { getAllCategories, getAllPosts, votePost } from '../actions';
+import { getAllCategories, getAllPosts, votePost, LATEST } from '../actions';
 import { bindActionCreators } from 'redux';
 import { getDate } from '../utils/helper';
 import Vote from './Vote';
@@ -18,7 +18,7 @@ class Categories extends Component {
     const { allPosts } = this.props;
 
     if (allPosts) {
-      if (this.props.sortValue.sortValue === 'LATEST_POST') {
+      if (this.props.sortValue.sortValue === LATEST) {
         allPosts.sort(function (a, b) {
           return b.timestamp - a.timestamp;
         });

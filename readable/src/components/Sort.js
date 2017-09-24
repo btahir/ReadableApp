@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { sortLatest, sortPopular } from '../actions';
+import { sortLatest, sortPopular, LATEST } from '../actions';
 import { connect } from 'react-redux';
 import '../Assets/dropdown.css';
 
@@ -22,7 +22,7 @@ class Sort extends Component {
   }
 
   fireDispatch(event) {
-    if(event === 'LATEST_POST') {
+    if(event === LATEST) {
       this.props.sortLatest();
     } else {
       this.props.sortPopular();
@@ -35,8 +35,8 @@ class Sort extends Component {
         <label className="sort-label">
           Sorted By:
           <select className="sort-list" value={this.state.value} onChange={this.handleChange}>
-            <option value="POPULAR_POST">Popular</option>
-            <option value="LATEST_POST">Latest</option>
+            <option value="POPULAR">Popular</option>
+            <option value="LATEST">Latest</option>
           </select>
         </label>
       </form>

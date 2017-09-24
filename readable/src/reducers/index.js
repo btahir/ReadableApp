@@ -3,8 +3,8 @@ import { combineReducers } from 'redux';
 import {
   FETCH_CATEGORIES,
   FETCH_POST,
-  LATEST_POST,
-  POPULAR_POST,
+  LATEST,
+  POPULAR,
   FETCH_ONE_POST,
   GET_COMMENTS,
   ADD_POST,
@@ -116,15 +116,15 @@ function reducePosts(state = [], action) {
 
 function sortValue(state = [], action) {
   switch(action.type) {
-    case POPULAR_POST:
+    case POPULAR:
       return {
         ...state,
-        sortValue: POPULAR_POST,
+        sortValue: POPULAR,
       };
-    case LATEST_POST:
+    case LATEST:
       return {
         ...state,
-        sortValue: LATEST_POST,
+        sortValue: LATEST,
       };
     default:
       return state;

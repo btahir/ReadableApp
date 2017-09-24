@@ -1,8 +1,8 @@
 import * as API from '../utils/api';
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
 export const FETCH_POST = 'FETCH_POST';
-export const LATEST_POST = 'LATEST_POST';
-export const POPULAR_POST = 'POPULAR_POST';
+export const LATEST = 'LATEST';
+export const POPULAR = 'POPULAR';
 export const FETCH_ONE_POST = 'FETCH_ONE_POST';
 export const GET_COMMENTS = 'GET_COMMENTS';
 export const ADD_POST = 'ADD_POST';
@@ -76,13 +76,13 @@ export function getComments(id) {
 
 export const sortPopular = () => {
   return {
-    type: POPULAR_POST
+    type: POPULAR
   };
 };
 
 export const sortLatest = () => {
   return {
-    type: LATEST_POST
+    type: LATEST
   };
 };
 

@@ -3,10 +3,11 @@ import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getOnePost, getComments, deletePost, addComment, 
   toggleModal, commentBodyModal, commentAuthorModal, validateModal, 
-  toggleEditModal, commentIdModal, editComment, deleteComment } from '../actions';
+  toggleEditModal, commentIdModal, editComment, deleteComment, LATEST } from '../actions';
 import Modal from './Modal';
 import { getUUID, getDate } from '../utils/helper';
 import Vote from './Vote';
+import Sort from './Sort';
 
 class PostDetail extends Component {
 
@@ -143,8 +144,25 @@ class PostDetail extends Component {
     );
   }
 
+  sortComments() {
+    const { getComments } = this.props;
+
+    if (getComments) {
+      if (this.props.sortValue.sortValue === LATEST) {
+        getComments.sort(function (a, b) {
+          return b.timestamp - a.timestamp;
+        });
+      } else {
+        getComments.sort(function (a, b) {
+          return b.voteScore - a.voteScore;
+        });
+      }
+      return getComments;
+    }
+  }
+
   showComment() {
-    const comments = this.props.getComments;
+    const comments = this.sortComments();
     return (
       <div> 
         {comments && comments.map(comment => this.showContent(comment))}
@@ -210,7 +228,7 @@ class PostDetail extends Component {
   }
 
   render() {
-    // console.log(this.props)
+    console.log(this.props)
     return (
       <div>
         <div>
@@ -221,6 +239,7 @@ class PostDetail extends Component {
         <div className="post-position">{this.showPost()}</div>
         <div className="comment-position">{this.props.getComments && this.props.getComments.length} Comments</div>
         <button onClick={() => {this.props.toggleModal();} } className="btn-comment">Add Comment</button>
+        <Sort sortProp={this.props.sortValue.sortValue}/>
         {this.showCommentModal()}
         {this.showEditCommentModal()}
         <hr />
@@ -240,7 +259,8 @@ function mapStateToProps (state) {
     commentBody: state.modal.comment,
     commentAuthor: state.modal.author,
     commentID: state.modal.comment_id,
-    isValid: state.modal.valid
+    isValid: state.modal.valid,
+    sortValue: state.sortValue
   };
 }
 
