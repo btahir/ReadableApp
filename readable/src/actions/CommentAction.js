@@ -23,10 +23,10 @@ export function addComment(data) {
   const request = API.addComment(data);
 
   return (dispatch) => {
-    request.then((data) => {
+    request.then((res) => {
       dispatch({
         type: ADD_COMMENT,
-        newComment: data
+        newComment: res
       });
     });
   };
@@ -36,10 +36,10 @@ export function editComment(data) {
   const request = API.editComment(data);
 
   return (dispatch) => {
-    request.then((data) => {
+    request.then((res) => {
       dispatch({
         type: EDIT_COMMENT,
-        editedPost: data,
+        editedComment: res,
       });
     });
   };
@@ -51,7 +51,8 @@ export function deleteComment(data) {
   return (dispatch) => {
     request.then(() => {
       dispatch({
-        type: DELETE_COMMENT
+        type: DELETE_COMMENT,
+        deletedCommentID: data
       });
     });
   };

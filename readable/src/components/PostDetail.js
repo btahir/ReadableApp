@@ -1,9 +1,24 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getOnePost, deletePost } from '../actions/PostAction';
-import { getComments, addComment, editComment, deleteComment } from '../actions/CommentAction';
-import { toggleModal, commentBodyModal, commentAuthorModal, commentIdModal, toggleEditModal, validateModal } from '../actions/ModalAction';
+import { 
+  getOnePost, 
+  deletePost 
+} from '../actions/PostAction';
+import { 
+  getComments, 
+  addComment, 
+  editComment, 
+  deleteComment 
+} from '../actions/CommentAction';
+import { 
+  toggleModal, 
+  commentBodyModal, 
+  commentAuthorModal, 
+  commentIdModal, 
+  toggleEditModal, 
+  validateModal 
+} from '../actions/ModalAction';
 import Modal from './Modal';
 import { getUUID, getDate, sortItems} from '../utils/helper';
 import Vote from './Vote';
@@ -77,7 +92,7 @@ class PostDetail extends Component {
         onClose={() => this.props.toggleModal()}
         onSubmit={() => this.newComment(this.props.commentBody,this.props.commentAuthor)}>
         <div>
-          <div>
+          <div className="comment-form-warning">
             {this.props.isValid ? null : 'Fields cannot be blank'}
           </div>
           <div className="comment-modal-label">
@@ -181,7 +196,6 @@ class PostDetail extends Component {
 
       this.props.postComment(comment_data);
       this.props.toggleModal();
-      window.location.reload();
     }
   }
 
@@ -200,14 +214,12 @@ class PostDetail extends Component {
 
       this.props.editComment(comment_data);
       this.props.toggleEditModal();
-      window.location.reload();
     }
   }
 
   removeComment(comment_id) {
     this.props.deleteComment(comment_id);
     this.props.toggleEditModal();
-    window.location.reload();
   }
 
   render() {

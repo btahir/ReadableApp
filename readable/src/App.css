@@ -378,3 +378,7 @@ textarea {
 	margin: 0;
 }
 
+.comment-form-warning {
+	color: red;
+}
+

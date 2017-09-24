@@ -44,12 +44,19 @@ function reducePosts(state = [], action) {
       };
     case DELETE_POST:
       return {
-        ...state
+        ...state,
+        posts: state.posts.filter(post => post.id !== action.deletedPostID)
       };
     case EDIT_POST:
       return {
         ...state,
-        editedPost: action.editedPost,
+        posts: state.posts.map(post => {
+          if(post.id === action.editedPost.id) {
+              return action.editedPost;
+            }
+          else {
+            return post;
+          }})
       };
     default :
       return state;

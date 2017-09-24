@@ -33,7 +33,7 @@ class Sort extends Component {
     return (
       <form className="sort-form">
         <label className="sort-label">
-          Sorted By:
+          Sort By:
           <select className="sort-list" value={this.state.value} onChange={this.handleChange}>
             <option value="POPULAR">Popular</option>
             <option value="LATEST">Latest</option>

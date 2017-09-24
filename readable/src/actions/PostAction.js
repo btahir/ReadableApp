@@ -24,10 +24,10 @@ export function getOnePost(id) {
   const request = API.getPost(id);
 
   return (dispatch) => {
-    request.then((data) => {
+    request.then((res) => {
       dispatch({
         type: FETCH_ONE_POST,
-        post: data,
+        post: res,
       });
     });
   };
@@ -37,10 +37,10 @@ export function addPost(data) {
   const request = API.addPost(data);
 
   return (dispatch) => {
-    request.then((data) => {
+    request.then((res) => {
       dispatch({
         type: ADD_POST,
-        newPost: data,
+        newPost: res,
       });
     });
   };
@@ -50,10 +50,10 @@ export function editPost(data) {
   const request = API.addPost(data);
 
   return (dispatch) => {
-    request.then((data) => {
+    request.then((res) => {
       dispatch({
         type: ADD_POST,
-        editedPost: data,
+        editedPost: res,
       });
     });
   };
@@ -65,7 +65,8 @@ export function deletePost(data) {
   return (dispatch) => {
     request.then(() => {
       dispatch({
-        type: DELETE_POST
+        type: DELETE_POST,
+        deletedPostID: data
       });
     });
   };

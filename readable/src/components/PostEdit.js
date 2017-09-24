@@ -34,7 +34,6 @@ class PostEdit extends Component {
 
 
   render() {
-    // console.log(this.props);
     const { handleSubmit } = this.props;
     return (
       <form className='post-form' onSubmit={handleSubmit( (values) => {this.savePost(values); })}>

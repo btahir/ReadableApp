@@ -16,12 +16,18 @@ function reduceComments(state = [], action) {
     case ADD_COMMENT:
       return {
         ...state,
-        newComment: action.newComment,
+        comments: [...state.comments, action.newComment] // can also use state.comments.concat(action.newComment)
       };
     case EDIT_COMMENT:
       return {
         ...state,
-        editedComment: action.editedComment,
+        comments: state.comments.map(comment => {
+          if(comment.id === action.editedComment.id) {
+              return action.editedComment;
+            }
+          else {
+            return comment;
+          }})
       };
     case VOTE_COMMENT:
       return {
@@ -36,7 +42,8 @@ function reduceComments(state = [], action) {
       };
     case DELETE_COMMENT:
       return {
-        ...state
+        ...state,
+        comments: state.comments.filter(comment => comment.id !== action.deletedCommentID)
       };
     default :
       return state;

@@ -20,7 +20,6 @@ class Vote extends Component {
   }
 
   render() {
-    // console.log(this.props);
     return (
       <div className={this.props.classStyle}>
         <img onClick={() => {this.moveVote('upVote'); }} src={require('../img/arrow-up.png')} alt="boohoo" height="24" width="24" className="img-responsive"/>
