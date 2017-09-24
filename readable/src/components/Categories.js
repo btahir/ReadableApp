@@ -68,7 +68,7 @@ class Categories extends Component {
           <hr/>
         </div>
         <div className="sort-buttons">
-          <Sort />
+          <Sort sortProp={this.props.sortValue.sortValue} />
           <button className="btn-new-post"><Link className="link-new-post" to="/post">New Post</Link></button>
         </div>
         <div className="Posts">

@@ -11,6 +11,17 @@ margin: 18px;
 text-align: center;
 }
 
+.main-sub-title {
+color: #333333; 
+font-family: 'Bitter', sans-serif;
+font-size: 12px;
+font-style: italic;
+font-weight: normal;
+line-height: 48px;
+margin: 0;
+text-align: center;
+}
+
 body {
   color:#000
 }
@@ -71,7 +82,7 @@ font-family: 'Helvetica Neue', sans-serif;
 font-size: 12px;
 text-align: justify;
 text-justify: inter-word;
-margin-left: 48px;
+margin-left: 58px;
 }
 
 .post-misc-detail {
@@ -313,7 +324,7 @@ textarea {
 }
 
 .vote-post {
-	margin-top: 22px;
+	margin: 22px 0 0 10px;
 	width: 15px;
 	float: left; 
 	clear: left;
@@ -355,11 +366,15 @@ textarea {
 }
 
 .between-arrows {
-	text-align: right;
+	height: 12px;
+	width: 24px;
+	text-align: center;
 	font-size: 12px;
 }
 
 .img-responsive {
+	height: 20px;
+	width: 24px;
 	margin: 0;
 }
 
