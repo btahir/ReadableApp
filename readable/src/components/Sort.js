@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { sortLatest, sortPopular, LATEST } from '../actions';
+import { sortLatest, sortPopular, LATEST } from '../actions/SortAction';
 import { connect } from 'react-redux';
 import '../Assets/dropdown.css';
 

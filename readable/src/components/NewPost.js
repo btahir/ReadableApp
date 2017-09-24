@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { addPost } from '../actions';
+import { addPost } from '../actions/PostAction';
 import { getUUID } from '../utils/helper';
 
 class NewPost extends Component {

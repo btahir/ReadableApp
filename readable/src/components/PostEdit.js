@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { editPost } from '../actions';
+import { editPost } from '../actions/PostAction';
 
 class PostEdit extends Component {
 
@@ -37,7 +37,7 @@ class PostEdit extends Component {
     // console.log(this.props);
     const { handleSubmit } = this.props;
     return (
-      <form className='post-form' onSubmit={handleSubmit( (values) => {this.savePost(values)} )}>
+      <form className='post-form' onSubmit={handleSubmit( (values) => {this.savePost(values); })}>
         <div>
           <label className="form-label">Title</label>
           <div>

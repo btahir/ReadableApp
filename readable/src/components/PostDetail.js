@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getOnePost, getComments, deletePost, addComment, 
-  toggleModal, commentBodyModal, commentAuthorModal, validateModal, 
-  toggleEditModal, commentIdModal, editComment, deleteComment } from '../actions';
+import { getOnePost, deletePost } from '../actions/PostAction';
+import { getComments, addComment, editComment, deleteComment } from '../actions/CommentAction';
+import { toggleModal, commentBodyModal, commentAuthorModal, commentIdModal, toggleEditModal, validateModal } from '../actions/ModalAction';
 import Modal from './Modal';
 import { getUUID, getDate, sortItems} from '../utils/helper';
 import Vote from './Vote';
@@ -236,7 +236,7 @@ class PostDetail extends Component {
 function mapStateToProps (state) {
   return {
     getPost: state.reducePosts.postDetail,
-    getComments: state.reducePosts.comments,
+    getComments: state.reduceComments.comments,
     isOpen: state.modal.isOpen,
     isEditOpen: state.modal.isEditOpen,
     commentBody: state.modal.comment,

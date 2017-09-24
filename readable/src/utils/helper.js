@@ -1,4 +1,4 @@
-import { LATEST } from '../actions';
+import { LATEST } from '../actions/SortAction';
 
 export function getDate(unix_timestamp) {
   let date = new Date(unix_timestamp);

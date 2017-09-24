@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { votePost, votePostDetail, voteComment } from '../actions';
+import { votePost, votePostDetail } from '../actions/PostAction';
+import { voteComment } from '../actions/CommentAction';
 import { connect } from 'react-redux';
 
 class Vote extends Component {
