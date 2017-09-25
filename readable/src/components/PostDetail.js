@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getOnePost } from '../actions/PostAction';
+import { getOnePost, deletePost } from '../actions/PostAction';
 import { getComments } from '../actions/CommentAction';
 import { 
   toggleModal, 
@@ -122,6 +122,7 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     dispatchPost: dispatch(getOnePost(ownProps.match.params.id)),
     dispatchComments: dispatch(getComments(ownProps.match.params.id)),
+    deletePost: () => dispatch(deletePost(ownProps.match.params.id)),
     toggleModal: () => dispatch(toggleModal()),
     toggleEditModal: () => dispatch(toggleEditModal()),
     addCommentID: (event) => dispatch(commentIdModal(event)),
