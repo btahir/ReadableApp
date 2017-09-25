@@ -1,3 +1,9 @@
+# Project Summary
+
+This is the 2nd project for the React Nanodegree using React and Redux.
+This is an anonymous reddit style app where anyone can add new posts and edit existing ones as well as the comments associated with them.
+They can also up vote or down vote the posts and comments.
+
 # Readable API Server
 
 ## Installation
@@ -6,6 +12,9 @@ Install packages: `npm install`
 Launch server: `node server`
 Unless modified in `config.js` server will use port 5001
 
+## Start Application Instructions
+
+To start application, run yarn start or npm start inside the readable directory.
 
 ## API
 Use an Authorization header to work with your own data:
