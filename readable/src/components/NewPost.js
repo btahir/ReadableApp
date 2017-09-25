@@ -26,88 +26,90 @@ class NewPost extends Component {
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props;
     return (
-      <form className='post-form' onSubmit={handleSubmit( (values) => {this.savePost(values);} )}>
-        <div>
-          <label className="form-label">Title</label>
+      <div className="form-div">
+        <form className='post-form' onSubmit={handleSubmit( (values) => {this.savePost(values);} )}>
           <div>
-            <Field
-              validate={[required]}
-              className="form-field"
-              name="title"
-              component={renderField}
-              type="text"
-            />
+            <label className="form-label">Title</label>
+            <div>
+              <Field
+                validate={[required]}
+                className="form-field"
+                name="title"
+                component={renderField}
+                type="text"
+              />
+            </div>
           </div>
-        </div>
-        <div>
-          <label className="form-label">Body</label>
           <div>
-            <Field
-              className="form-field"
-              validate={[required]}
-              name="body"
-              component="textarea"
-              type="text"
-              size="35"
-            />
+            <label className="form-label">Body</label>
+            <div>
+              <Field
+                className="form-field"
+                validate={[required]}
+                name="body"
+                component="textarea"
+                type="text"
+                size="35"
+              />
+            </div>
           </div>
-        </div>
-        <div>
-          <label className="form-label">Author</label>
           <div>
-            <Field
-              className="form-field"
-              name="author"
-              validate={[required]}
-              component={renderField}
-              type="text"
-            />
+            <label className="form-label">Author</label>
+            <div>
+              <Field
+                className="form-field"
+                name="author"
+                validate={[required]}
+                component={renderField}
+                type="text"
+              />
+            </div>
           </div>
-        </div>
-        <div>
-          <label className="form-label">Category</label>
-          <div className="form-field">
-            <label className="form-label">
-              <Field
-                name="category"
-                component="input"
-                type="radio"
-                value="react"
-              />{' '}
-              react
-            </label>
-            <label className="form-label">
-              <Field
-                name="category"
-                component="input"
-                type="radio"
-                value="redux"
-              />{' '}
-              redux
-            </label>
-            <label className="form-label">
-              <Field
-                name="category"
-                component="input"
-                type="radio"
-                value="udacity"
-              />{' '}
-              udacity
-            </label>
+          <div>
+            <label className="form-label">Category</label>
+            <div className="form-field">
+              <label className="form-label">
+                <Field
+                  name="category"
+                  component="input"
+                  type="radio"
+                  value="react"
+                />{' '}
+                react
+              </label>
+              <label className="form-label">
+                <Field
+                  name="category"
+                  component="input"
+                  type="radio"
+                  value="redux"
+                />{' '}
+                redux
+              </label>
+              <label className="form-label">
+                <Field
+                  name="category"
+                  component="input"
+                  type="radio"
+                  value="udacity"
+                />{' '}
+                udacity
+              </label>
+            </div>
           </div>
-        </div>
-        <div>
-          <button className="submit-btn" type="submit" disabled={pristine || submitting}>
-            Submit
-          </button>
-          <button className="reset-btn" type="button" disabled={pristine || submitting} onClick={reset}>
-            Clear Values
-          </button>
-          <button className="reset-btn" type="button" onClick={() => {this.props.history.push('/')} }>
-            Cancel
-          </button>
-        </div>
-      </form>
+          <div>
+            <button className="submit-btn" type="submit" disabled={pristine || submitting}>
+              Submit
+            </button>
+            <button className="reset-btn" type="button" disabled={pristine || submitting} onClick={reset}>
+              Clear Values
+            </button>
+            <button className="reset-btn" type="button" onClick={() => {this.props.history.push('/'); }}>
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
     );
   }
 }
