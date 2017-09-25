@@ -1,12 +1,5 @@
-import React, { Component } from 'react';
-import { withRouter, Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React from 'react';
 import { 
-  getOnePost, 
-  deletePost 
-} from '../actions/PostAction';
-import { 
-  getComments, 
   addComment, 
   editComment, 
   deleteComment 
@@ -14,77 +7,16 @@ import {
 import { 
   toggleModal, 
   commentBodyModal, 
-  commentAuthorModal, 
-  commentIdModal, 
+  commentAuthorModal,
   toggleEditModal, 
   validateModal 
 } from '../actions/ModalAction';
+import { connect } from 'react-redux';
+import { getUUID } from '../utils/helper';
 import Modal from './Modal';
-import { getUUID, getDate, sortItems} from '../utils/helper';
-import Vote from './Vote';
-import Sort from './Sort';
 
-class PostDetail extends Component {
 
-  showContent(item) {
-    if(item) {
-      if(item.category) {
-        return (
-          <div key={item.id}>
-            <Vote voteData={{id: item.id, item: 'postDetail', score: item.voteScore}}  classStyle="vote-post-detail" />
-            <div className="post-title">
-              {item.title}
-            </div>
-            <div className="post-body">
-              {item.body}
-            </div>
-            <div className="post-misc-detail">
-              <div className="padding-stuff" />
-                Author: {item.author}
-                &nbsp;&nbsp;&nbsp;&nbsp; Category: {item.category}
-                &nbsp;&nbsp;&nbsp;&nbsp; Date: {getDate(item.timestamp)}
-            </div>
-          </div>
-        );
-      } else {
-        return (
-          <div key={item.id}>
-            <Vote voteData={{id: item.id, item: 'comment', score: item.voteScore}}  classStyle="vote-comment" />
-            <div className="comment-body">
-              <button onClick={() => {this.editCommentModal(item);} } className="comment-style">{item.body}</button>
-            </div>
-            <div className="post-misc-detail">
-              <div className="padding-stuff" />
-                Author: {item.author}
-                &nbsp;&nbsp;&nbsp;&nbsp; Date: {getDate(item.timestamp)}
-            </div>
-            <div className="hrComment" />
-          </div>
-        );
-      }
-    }
-  }
-
-  editCommentModal(item) {
-    this.props.toggleEditModal();
-    this.props.addCommentID(item.id);
-    this.props.addCommentBody(item.body);
-    this.props.addCommentAuthor(item.author);
-  }
-
-  showPost() {
-    const post = this.props.getPost;
-    return (
-      <div className="post-content"> 
-        {this.showContent(post)}
-      </div>
-    );
-  }
-
-  delPost(id) {
-    this.props.deletePost(id);
-    this.props.history.push('/');
-  }
+class CommentModal extends React.Component {
 
   showCommentModal() {
     return (
@@ -159,15 +91,6 @@ class PostDetail extends Component {
     );
   }
 
-  showComment() {
-    const comments = sortItems(this.props.getComments, this.props.sortValue.sortValue);
-    return (
-      <div> 
-        {comments && comments.map(comment => this.showContent(comment))}
-      </div>
-    );
-  }
-
   captureCommentBody(event) {
     this.props.addCommentBody(event);
   }
@@ -191,7 +114,7 @@ class PostDetail extends Component {
         timestamp: Date.now(),
         body: comment,
         author: author,
-        parentId: this.props.match.params.id
+        parentId: this.props.parentID
       };
 
       this.props.postComment(comment_data);
@@ -209,7 +132,7 @@ class PostDetail extends Component {
         timestamp: Date.now(),
         body: comment,
         author: author,
-        parentId: this.props.match.params.id
+        parentId: this.props.parentID
       };
 
       this.props.editComment(comment_data);
@@ -223,22 +146,10 @@ class PostDetail extends Component {
   }
 
   render() {
-    // console.log(this.props)
     return (
       <div>
-        <div>
-          <button onClick={() => {this.props.history.push('/')} } className="btn-popular">Back</button>
-          <button className="btn-latest"><Link className="link-new-post" to={`/posts/edit/${this.props.match.params.id}`}>Edit</Link></button>
-          <button onClick={() => {this.delPost(this.props.match.params.id)} } className="btn-latest">Delete</button>
-        </div>
-        <div className="post-position">{this.showPost()}</div>
-        <div className="comment-position">{this.props.getComments && this.props.getComments.length} Comments</div>
-        <button onClick={() => {this.props.toggleModal();} } className="btn-comment">Add Comment</button>
-        <Sort sortProp={this.props.sortValue.sortValue}/>
         {this.showCommentModal()}
         {this.showEditCommentModal()}
-        <hr />
-        <div className="post-position">{this.showComment()}</div>
       </div>
     );
   }
@@ -247,26 +158,19 @@ class PostDetail extends Component {
 
 function mapStateToProps (state) {
   return {
-    getPost: state.reducePosts.postDetail,
-    getComments: state.reduceComments.comments,
     isOpen: state.modal.isOpen,
     isEditOpen: state.modal.isEditOpen,
     commentBody: state.modal.comment,
     commentAuthor: state.modal.author,
     commentID: state.modal.comment_id,
-    isValid: state.modal.valid,
-    sortValue: state.sortValue
+    isValid: state.modal.valid
   };
 }
 
-function mapDispatchToProps(dispatch, ownProps) {
+function mapDispatchToProps(dispatch) {
   return {
-    dispatchPost: dispatch(getOnePost(ownProps.match.params.id)),
-    dispatchComments: dispatch(getComments(ownProps.match.params.id)),
-    deletePost: () => dispatch(deletePost(ownProps.match.params.id)),
     toggleModal: () => dispatch(toggleModal()),
     toggleEditModal: () => dispatch(toggleEditModal()),
-    addCommentID: (event) => dispatch(commentIdModal(event)),
     addCommentBody: (event) => dispatch(commentBodyModal(event)),
     addCommentAuthor: (event) => dispatch(commentAuthorModal(event)),
     postComment: (data) => dispatch(addComment(data)),
@@ -276,7 +180,7 @@ function mapDispatchToProps(dispatch, ownProps) {
   };
 }
 
-export default withRouter(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PostDetail));
+)(CommentModal);

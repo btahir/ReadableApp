@@ -6,6 +6,7 @@ import '../Assets/dropdown.css';
 class Sort extends Component {
   constructor(props) {
     super(props);
+    // This is the only place I am using local state vs Redux store
     this.state = {value: this.props.sortProp};
 
     this.handleChange = this.handleChange.bind(this);
