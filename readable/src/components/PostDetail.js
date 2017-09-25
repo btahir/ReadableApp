@@ -92,9 +92,9 @@ class PostDetail extends Component {
     return (
       <div>
         <div>
-          <button onClick={() => {this.props.history.push('/'); }} className="btn-popular">Back</button>
-          <button className="btn-latest"><Link className="link-new-post" to={`/posts/edit/${this.props.match.params.id}`}>Edit</Link></button>
-          <button onClick={() => {this.delPost(this.props.match.params.id); }} className="btn-latest">Delete</button>
+          <button onClick={() => {this.props.history.push('/'); }} className="btn-back">Back</button>
+          <button className="btn-edit"><Link className="link-new-post" to={`/posts/edit/${this.props.match.params.id}`}>Edit</Link></button>
+          <button onClick={() => {this.delPost(this.props.match.params.id); }} className="btn-edit">Delete</button>
         </div>
         <div className="post-position">{this.showPost()}</div>
         <div className="comment-position">{this.props.getComments && this.props.getComments.length} Comments</div>
