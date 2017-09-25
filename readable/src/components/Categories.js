@@ -39,7 +39,6 @@ class Categories extends Component {
   }
 
   render() {
-    // console.log(this.props)
     return (
       <div className="App2" >
         <div className="nav-bar">
