@@ -124,6 +124,7 @@ cursor:pointer;
 .btn-comment:hover{background-color:#696969;}
 .submit-btn:hover{background-color:#696969;}
 .reset-btn:hover{background-color:#696969;}
+.sort-list:hover{background-color:#696969;}
 
 .btn-back:active{position:relative;top:2px;}
 .btn-edit:active{position:relative;top:2px;}
