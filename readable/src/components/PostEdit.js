@@ -77,7 +77,7 @@ class PostEdit extends Component {
 
 function mapStateToProps (state) {
   return {
-    postData: state.reducePosts.postDetail
+    postData: state.reducePosts.posts[0]
   };
 }
 

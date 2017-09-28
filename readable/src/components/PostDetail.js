@@ -19,7 +19,7 @@ import Sort from './Sort';
 class PostDetail extends Component {
 
   showContent(item) {
-    if(item) {
+    if(item !== 'Post is Deleted') {
       if(item.category) {
         return (
           <div key={item.id}>
@@ -54,6 +54,12 @@ class PostDetail extends Component {
           </div>
         );
       }
+    } else {
+      return (
+        <div className="post-body">
+          Post has been Deleted!
+        </div>
+      );
     }
   }
 
@@ -89,6 +95,7 @@ class PostDetail extends Component {
   }
 
   render() {
+    // console.log(this.props)
     return (
       <div>
         <div>
@@ -112,8 +119,8 @@ class PostDetail extends Component {
 
 function mapStateToProps (state) {
   return {
-    getPost: state.reducePosts.postDetail,
-    getComments: state.reduceComments.comments,
+    getPost: state.reducePosts.posts ? state.reducePosts.posts[0] : 'Post is Deleted',
+    getComments: state.reducePosts.posts ? state.reduceComments.comments : '',
     sortValue: state.sortValue
   };
 }

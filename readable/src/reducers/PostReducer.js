@@ -14,12 +14,12 @@ function reducePosts(state = [], action) {
     case FETCH_POST:
       return {
         ...state,
-        posts: _.values(action.posts),
+        posts: _.values(action.posts)
       };
     case FETCH_ONE_POST:
       return {
         ...state,
-        postDetail: action.post,
+        posts: state.posts && state.posts.filter(post => post.id === action.post.id)
       };
     case ADD_POST:
       return {

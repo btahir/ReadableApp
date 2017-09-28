@@ -4,6 +4,7 @@ import '../App.css';
 import { withRouter, Link } from 'react-router-dom';
 import { getAllPosts, votePost } from '../actions/PostAction';
 import { getAllCategories } from '../actions/CategoriesAction';
+import { getComments } from '../actions/CommentAction';
 import { bindActionCreators } from 'redux';
 import { getDate, sortItems } from '../utils/helper';
 import Vote from './Vote';
@@ -13,6 +14,24 @@ class Categories extends Component {
   componentWillMount() {
     this.props.fetchPosts();
     this.props.fetchCategories();
+  }
+
+  // componentDidUpdate(allPosts) {
+  //   console.log("componentDidUpdate", allPosts)
+  //   const postsArray = allPosts;
+  //   if(postsArray) {
+  //     postsArray.map(post => console.log("hey"));
+  //   }
+  //   this.props.fetchComments('8xf0y6ziyjabvozdd253nd');
+  // }
+
+  postComments(id) {
+    this.props.fetchComments(id);
+    const sas = this.props.getpostComments ? this.props.getpostComments.length : 0
+    // console.log(this.getpostComments);
+
+    return sas.length;
+
   }
 
   showPosts() {
@@ -26,7 +45,7 @@ class Categories extends Component {
           <ul key={posts.id} className="post-id">
             <Vote voteData={{id: posts.id, item: 'post', score: posts.voteScore}}  classStyle="vote-post"/>
             <h3 className="post-title">
-              <Link className="post-title" to={`/posts/${posts.id}`}>{posts.title}</Link>
+              <Link className="post-title" to={`/posts/${posts.id}`}>{posts.title} ()</Link>
             </h3>
             <div className="post-misc">
               Author: {posts.author}
@@ -39,6 +58,7 @@ class Categories extends Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div className="App2" >
         <div className="nav-bar">
@@ -66,6 +86,7 @@ function mapStateToProps(state) {
   return {
     mapCategories: state.reduceCategories.categories,
     allPosts: state.reducePosts.posts,
+    getpostComments: state.reduceComments.comments,
     sortValue: state.sortValue
   };
 }
@@ -74,7 +95,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     fetchCategories: getAllCategories,
     fetchPosts: getAllPosts,
-    votePost: votePost
+    votePost: votePost,
+    fetchComments: getComments
   }, dispatch);
 }
 
