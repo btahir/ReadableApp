@@ -6,17 +6,32 @@ export const DELETE_POST = 'DELETE_POST';
 export const EDIT_POST = 'EDIT_POST';
 export const VOTE_POST = 'VOTE_POST';
 export const VOTE_POST_DETAIL = 'VOTE_POST_DETAIL';
+export const FETCH_POST_COMMENTS = 'FETCH_POST_COMMENTS';
 
 export function getAllPosts() {
   const request = API.getPosts();
 
-  return (dispatch) => {
-    request.then((data) => {
-      dispatch({
-        type: FETCH_POST,
-        posts: data,
+
+  return dispatch => {
+
+      request.then((data) => {
+        dispatch({
+          type: FETCH_POST,
+          posts: data,
+        });
+     
+
+        // get all comments
+        for(let post of data) {
+          let request2 = API.getComments(post.id);
+            request2.then((data) => {
+              dispatch({
+                type: FETCH_POST_COMMENTS,
+                comments: data
+              });
+            });
+        }
       });
-    });
   };
 }
 

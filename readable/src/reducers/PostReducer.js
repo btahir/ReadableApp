@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import {
   FETCH_POST,
+  FETCH_POST_COMMENTS,
   FETCH_ONE_POST,
   ADD_POST,
   DELETE_POST,
@@ -9,12 +10,22 @@ import {
   VOTE_POST_DETAIL
 } from '../actions/PostAction';
 
-function reducePosts(state = [], action) {
+function excludeDuplicates(array, comment) {
+  const new_array = array.concat(comment);
+  return _.uniqBy(new_array, 'id');
+}
+
+function reducePosts(state = {'comments':[]}, action) {
   switch (action.type) {
     case FETCH_POST:
       return {
         ...state,
         posts: _.values(action.posts)
+      };
+    case FETCH_POST_COMMENTS:
+      return {
+        ...state,
+        comments: excludeDuplicates(state.comments, action.comments)
       };
     case FETCH_ONE_POST:
       return {
