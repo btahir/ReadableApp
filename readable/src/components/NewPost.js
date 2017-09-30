@@ -9,6 +9,7 @@ class NewPost extends Component {
 
   savePost(values) {
     const uuid = getUUID();
+    const category_value = values.category ? values.category : 'react';
 
     const data = {
       'id': uuid,
@@ -16,7 +17,7 @@ class NewPost extends Component {
       'title': values.title,
       'body': values.body,
       'author': values.author,
-      'category': values.category
+      'category': category_value
     };
 
     this.props.history.push('/');
