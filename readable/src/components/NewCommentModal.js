@@ -14,13 +14,15 @@ import Modal from './Modal';
 class NewCommentModal extends React.Component {
 
   showCommentModal() {
+    const { toggleModal,commentBody,commentAuthor,
+      addCommentBody,addCommentAuthor,isValid,isOpen } = this.props;
     return (
-      <Modal show={this.props.isOpen}
-        onClose={() => this.props.toggleModal()}
-        onSubmit={() => this.newComment(this.props.commentBody,this.props.commentAuthor)}>
+      <Modal show={isOpen}
+        onClose={() => toggleModal()}
+        onSubmit={() => this.newComment(commentBody,commentAuthor)}>
         <div>
           <div className="comment-form-warning">
-            {this.props.isValid ? null : 'Fields cannot be blank'}
+            {isValid ? null : 'Fields cannot be blank'}
           </div>
           <div className="comment-modal-label">
             Comment
@@ -29,7 +31,7 @@ class NewCommentModal extends React.Component {
             className="comment-modal-field"
             type="text"
             placeholder="Add Comment"
-            onChange={event => this.props.addCommentBody(event.target.value)}
+            onChange={event => addCommentBody(event.target.value)}
           />
         </div>
         <div>
@@ -40,7 +42,7 @@ class NewCommentModal extends React.Component {
             className="comment-modal-field"
             type="text"
             placeholder="Author"
-            onChange={event => this.props.addCommentAuthor(event.target.value)}
+            onChange={event => addCommentAuthor(event.target.value)}
           />
         </div>
       </Modal>

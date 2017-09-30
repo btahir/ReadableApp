@@ -67,7 +67,7 @@ export function editPost(data) {
   return (dispatch) => {
     request.then((res) => {
       dispatch({
-        type: ADD_POST,
+        type: EDIT_POST,
         editedPost: res,
       });
     });

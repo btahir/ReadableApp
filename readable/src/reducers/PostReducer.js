@@ -30,7 +30,7 @@ function reducePosts(state = {'comments':[]}, action) {
     case FETCH_ONE_POST:
       return {
         ...state,
-        posts: state.posts && state.posts.filter(post => post.id === action.post.id)
+        posts: [action.post]
       };
     case ADD_POST:
       return {

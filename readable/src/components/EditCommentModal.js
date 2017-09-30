@@ -16,13 +16,15 @@ import Modal from './Modal';
 class EditCommentModal extends React.Component {
 
   showEditCommentModal() {
+    const { toggleEditModal,commentID,commentBody,commentAuthor,
+      addCommentBody,addCommentAuthor,isEditOpen,isValid } = this.props;
     return (
-      <Modal show={this.props.isEditOpen}
-        onClose={() => this.props.toggleEditModal()}
-        onSubmit={() => this.changeComment(this.props.commentID, this.props.commentBody,this.props.commentAuthor)}>
+      <Modal show={isEditOpen}
+        onClose={() => toggleEditModal()}
+        onSubmit={() => this.changeComment(commentID, commentBody,commentAuthor)}>
         <div>
           <div>
-            {this.props.isValid ? null : 'Fields cannot be blank'}
+            {isValid ? null : 'Fields cannot be blank'}
           </div>
           <div className="comment-modal-label">
             Comment
@@ -30,8 +32,8 @@ class EditCommentModal extends React.Component {
           <textarea
             className="comment-modal-field"
             type="text"
-            value={this.props.commentBody}
-            onChange={event => this.props.addCommentBody(event.target.value)}
+            value={commentBody}
+            onChange={event => addCommentBody(event.target.value)}
           />
         </div>
         <div>
@@ -41,12 +43,12 @@ class EditCommentModal extends React.Component {
           <input
             className="comment-modal-field"
             type="text"
-            value={this.props.commentAuthor}
-            onChange={event => this.props.addCommentAuthor(event.target.value)}
+            value={commentAuthor}
+            onChange={event => addCommentAuthor(event.target.value)}
           />
         </div>
         <div className="footer">
-          <button className='btn-modal' onClick={() => {this.removeComment(this.props.commentID); }}>
+          <button className='btn-modal' onClick={() => {this.removeComment(commentID); }}>
             Delete
           </button>
         </div>

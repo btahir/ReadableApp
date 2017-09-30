@@ -117,9 +117,9 @@ class PostDetail extends Component {
 
 }
 
-function mapStateToProps (state) {
+function mapStateToProps (state, ownProps) {
   return {
-    getPost: state.reducePosts.posts ? state.reducePosts.posts[0] : 'Post is Deleted',
+    getPost: state.reducePosts.posts ? state.reducePosts.posts.filter(post => post.id === ownProps.match.params.id)[0] : 'Post is Deleted',
     getComments: state.reducePosts.posts ? state.reduceComments.comments : '',
     sortValue: state.sortValue
   };
