@@ -97,7 +97,7 @@ margin-left: 32px;
 	margin: 24px 0 24px 12px;
 }
 
-.btn-back, .btn-edit, .btn-new-post, .btn-comment, .submit-btn, .reset-btn {
+.btn-back, .btn-edit, .btn-new-post, .btn-comment, .submit-btn, .reset-btn, .btn-delete {
 color:#FFFFFF;
 font:0.9em Futura, ‘Century Gothic’, AppleGothic, sans-serif;
 padding:8px;
@@ -125,6 +125,7 @@ cursor:pointer;
 .submit-btn:hover{background-color:#696969;}
 .reset-btn:hover{background-color:#696969;}
 .sort-list:hover{background-color:#696969;}
+.btn-delete:hover{background-color:#696969;}
 
 .btn-back:active{position:relative;top:2px;}
 .btn-edit:active{position:relative;top:2px;}
@@ -132,6 +133,7 @@ cursor:pointer;
 .btn-comment:active{position:relative;top:2px;}
 .submit-btn:active{position:relative;top:2px;}
 .reset-btn:active{position:relative;top:2px;}
+.btn-delete:active{position:relative;top:2px;}
 
 .btn-edit {
 	margin-left: 0px;
@@ -384,5 +386,9 @@ textarea {
 
 .sort-form {
     display: inline-block;
+}
+
+.div-delete {
+	display: inline-block;
 }
 

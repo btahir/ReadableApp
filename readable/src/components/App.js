@@ -29,17 +29,17 @@ class App extends Component {
             <Categories filterCategory={['react']}/>
           )}
         />
-        <Route path="/redux"
+        <Route exact path="/redux"
           render={() => (
             <Categories filterCategory={['redux']}/>
           )}
         />
-        <Route path="/udacity"
+        <Route exact path="/udacity"
           render={() => (
             <Categories filterCategory={['udacity']}/>
           )}
         />
-        <Route exact path="/posts/:id"
+        <Route exact path="/posts/:category/:id"
           render={() => (
             <PostDetail />
           )}
@@ -49,7 +49,7 @@ class App extends Component {
             <NewPost />
           )}
         />
-        <Route path="/posts/edit/:id"
+        <Route exact path="/edit/:id"
           render={() => (
             <PostEdit />
           )}

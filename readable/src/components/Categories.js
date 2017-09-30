@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../App.css';
 import { withRouter, Link } from 'react-router-dom';
-import { getAllPosts, votePost } from '../actions/PostAction';
+import { getAllPosts, votePost, deletePost } from '../actions/PostAction';
 import { getAllCategories } from '../actions/CategoriesAction';
 import { bindActionCreators } from 'redux';
 import { getDate, sortItems } from '../utils/helper';
@@ -33,8 +33,12 @@ class Categories extends Component {
           <ul key={posts.id} className="post-id">
             <Vote voteData={{id: posts.id, item: 'post', score: posts.voteScore}}  classStyle="vote-post"/>
             <h3 className="post-title">
-              <Link className="post-title" to={`/posts/${posts.id}`}>{posts.title}</Link>
+              <Link className="post-title" to={`/posts/${posts.category}/${posts.id}`}>{posts.title}</Link>
             </h3>
+            <div className="div-delete">
+              <button className="btn-delete"><Link className="link-new-post" to={`/edit/${posts.id}`}>Edit</Link></button>
+              <button className="btn-new-post" onClick={() => {this.props.deletePost(posts.id);}}>Delete</button>
+            </div>
             <div className="post-misc">
               Author: {posts.author}
               &nbsp;&nbsp;&nbsp;&nbsp; Category: {posts.category}
@@ -84,6 +88,7 @@ function mapDispatchToProps(dispatch) {
     fetchCategories: getAllCategories,
     fetchPosts: getAllPosts,
     votePost: votePost,
+    deletePost: (id) => deletePost(id),
   }, dispatch);
 }
 

@@ -65,7 +65,7 @@ class PostEdit extends Component {
             <button className="submit-btn" type="submit">
               Submit
             </button>
-            <button className="reset-btn" onClick={() => {this.props.history.push(`/posts/${this.props.match.params.id}`)} }>
+            <button className="reset-btn" onClick={() => {this.props.history.push(`/posts/${this.props.postData.category}/${this.props.match.params.id}`)} }>
               Cancel
             </button>
           </div>
@@ -75,9 +75,9 @@ class PostEdit extends Component {
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps (state, ownProps) {
   return {
-    postData: state.reducePosts.posts[0]
+    postData: state.reducePosts.posts.filter(post => post.id === ownProps.match.params.id)[0]
   };
 }
 
