@@ -19,7 +19,7 @@ import Sort from './Sort';
 class PostDetail extends Component {
 
   showContent(item) {
-    if(item !== 'Post is Deleted') {
+    if(item && item !== 'Post is Deleted') {
       if(item.category) {
         return (
           <div key={item.id}>
